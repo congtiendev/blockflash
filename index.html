@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Block Blast</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Nunito:wght@800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -36,7 +36,112 @@
         align-items: center;
         justify-content: center;
         background: #3a8fdc;
-        font-family: "Nunito", sans-serif;
+        font-family: "Jaro", sans-serif;
+      }
+
+      /* ═══ LOADING SCREEN ═══ */
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        background: linear-gradient(
+          170deg,
+          #7ac8ff 0%,
+          #4aabf5 40%,
+          #2e8fe0 100%
+        );
+        background-image:
+          radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.13) 2px,
+            transparent 2px
+          ),
+          linear-gradient(170deg, #7ac8ff 0%, #4aabf5 40%, #2e8fe0 100%);
+        background-size:
+          28px 28px,
+          100% 100%;
+        transition:
+          opacity 0.5s ease,
+          visibility 0s linear 0.5s;
+      }
+      .loading-screen.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-logo {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(2.8rem, 13vw, 4.4rem);
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 1px;
+        filter: drop-shadow(3px 5px 0 rgba(0, 0, 0, 0.5));
+        animation: loadLogoFloat 2.2s ease-in-out infinite;
+      }
+      @keyframes loadLogoFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+        50% {
+          transform: translateY(-6px) rotate(1.5deg);
+        }
+      }
+      .loading-blocks {
+        display: flex;
+        gap: 10px;
+      }
+      .lb {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 1.5px solid rgba(0, 0, 0, 0.22);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.3),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+        animation: lbBounce 0.95s ease-in-out infinite;
+      }
+      .lb1 {
+        background: #f44a4a;
+      }
+      .lb2 {
+        background: #ff9f30;
+        animation-delay: 0.1s;
+      }
+      .lb3 {
+        background: #ffe030;
+        animation-delay: 0.2s;
+      }
+      .lb4 {
+        background: #3dd865;
+        animation-delay: 0.3s;
+      }
+      .lb5 {
+        background: #3dc8f5;
+        animation-delay: 0.4s;
+      }
+      @keyframes lbBounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        30% {
+          transform: translateY(-22px) scale(1.12);
+        }
+      }
+      .loading-text {
+        font-family: "Jaro", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
       }
 
       /* ═══ APP SHELL ═══ */
@@ -104,7 +209,7 @@
         width: 100%;
         padding: 13px 28px;
         border-radius: 12px;
-        font-family: "Bungee Spice", cursive;
+        font-family: "Jaro", sans-serif;
         font-size: 1rem;
         letter-spacing: 0.3px;
         color: #fff;
@@ -135,7 +240,7 @@
       .w > .f {
         background: hsl(230 30% 95%);
         color: #334;
-        font-family: "Nunito", sans-serif;
+        font-family: "Jaro", sans-serif;
         font-weight: 900;
         font-size: 0.88rem;
       }
@@ -159,7 +264,7 @@
         transition:
           transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
           box-shadow 0.1s;
-        font-family: "Nunito", sans-serif;
+        font-family: "Jaro", sans-serif;
         font-weight: 900;
       }
       .ibtn:active {
@@ -194,7 +299,7 @@
         flex-shrink: 0;
       }
       .home-logo {
-        font-family: "Bungee Spice", cursive;
+        font-family: "Jaro", sans-serif;
         font-size: clamp(2.6rem, 12vw, 4rem);
         line-height: 0.92;
         text-align: center;
@@ -257,7 +362,7 @@
         padding: 10px 16px;
       }
       .best-right .val {
-        font-family: "Bungee Spice", cursive;
+        font-family: "Jaro", sans-serif;
         font-size: clamp(1.8rem, 7vw, 2.4rem);
         filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
       }
@@ -342,7 +447,7 @@
       .lb-btn > .f {
         background: rgba(255, 255, 255, 0.15);
         color: #fff;
-        font-family: "Nunito", sans-serif;
+        font-family: "Jaro", sans-serif;
         font-weight: 900;
         font-size: clamp(0.82rem, 3.5vw, 1rem);
         letter-spacing: 0.3px;
@@ -392,7 +497,7 @@
         line-height: 1;
       }
       .sc-pill .val {
-        font-family: "Bungee Spice", cursive;
+        font-family: "Jaro", sans-serif;
         font-size: clamp(1.1rem, 5vw, 1.35rem);
         line-height: 1.1;
         filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
@@ -444,6 +549,7 @@
         gap: clamp(2px, 0.8vw, 4px);
         width: 100%;
         height: 100%;
+        position: relative;
       }
       .cell {
         border-radius: clamp(4px, 1.2vw, 7px);
@@ -566,13 +672,144 @@
         flex-shrink: 0;
         width: 100%;
       }
+      .tray-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 clamp(14px, 4vw, 22px);
+        margin-bottom: clamp(6px, 2vw, 10px);
+        gap: 10px;
+      }
       .tray-hint {
         font-size: 0.65rem;
         font-weight: 900;
         letter-spacing: 1.5px;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.5);
-        margin-bottom: clamp(6px, 2vw, 10px);
+        flex: 1;
+      }
+      .skill-btn {
+        position: relative;
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        padding: 0;
+        overflow: visible;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 4px 0 rgba(0, 0, 0, 0.25),
+          0 6px 14px rgba(0, 0, 0, 0.22);
+        transition:
+          transform 0.12s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+        flex-shrink: 0;
+      }
+      .skill-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+      .skill-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+        filter: grayscale(0.8);
+      }
+      .skill-btn:not(:disabled):hover {
+        transform: translateY(-2px);
+      }
+      .skill-btn:not(:disabled):active {
+        transform: translateY(1px);
+        box-shadow:
+          0 1px 0 rgba(0, 0, 0, 0.25),
+          0 3px 8px rgba(0, 0, 0, 0.22);
+      }
+      .skill-btn.active {
+        border-color: #ffe030;
+        animation: skillActivePulse 0.9s ease-in-out infinite alternate;
+      }
+      @keyframes skillActivePulse {
+        from {
+          box-shadow:
+            0 0 0 3px rgba(255, 224, 48, 0.4),
+            0 0 16px rgba(255, 224, 48, 0.55);
+        }
+        to {
+          box-shadow:
+            0 0 0 4px rgba(255, 224, 48, 0.75),
+            0 0 24px rgba(255, 224, 48, 0.95);
+        }
+      }
+      .skill-count {
+        position: absolute;
+        bottom: -7px;
+        right: -7px;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 11px;
+        background: #f44a4a;
+        color: #fff;
+        font-family: "Jaro", sans-serif;
+        font-size: 0.85rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        border: 2px solid #142050;
+      }
+      .skill-btn:disabled .skill-count {
+        background: #888;
+      }
+
+      /* Skill drag ghost — floats with cursor/finger */
+      .skill-ghost {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        width: 56px;
+        height: 56px;
+        border-radius: 13px;
+        overflow: hidden;
+        transform: translate(-50%, -50%);
+        box-shadow:
+          0 0 0 3px rgba(255, 224, 48, 0.8),
+          0 0 26px rgba(255, 224, 48, 0.95);
+        opacity: 0.95;
+      }
+      .skill-ghost img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* 3x3 preview on board during skill drag */
+      .cell.skill-preview {
+        outline: 3px solid #ffe030;
+        outline-offset: -3px;
+        z-index: 5;
+        animation: skillPrevPulse 0.6s ease-in-out infinite alternate;
+      }
+      .cell.filled.skill-preview {
+        filter: brightness(1.25) saturate(1.1);
+      }
+      .cell:not(.filled).skill-preview {
+        background: rgba(255, 224, 48, 0.25);
+      }
+      @keyframes skillPrevPulse {
+        from {
+          box-shadow: 0 0 12px rgba(255, 224, 48, 0.5);
+        }
+        to {
+          box-shadow: 0 0 22px rgba(255, 224, 48, 1);
+        }
       }
       .tray {
         display: flex;
@@ -656,42 +893,62 @@
    OVERLAY / MODAL
 ═══════════════════════════════════ */
       .ov {
-        position: absolute;
+        position: fixed;
         inset: 0;
-        z-index: 50;
+        z-index: 9000;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: rgba(8, 16, 50, 0.8);
-        backdrop-filter: blur(8px);
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.22s;
+        transition: opacity 0.25s ease;
         padding: 20px;
       }
       .ov.show {
         opacity: 1;
+      }
+      .ov.show .modal {
         pointer-events: all;
       }
+      /* Intro gate variants — dim backdrop + block interaction */
+      .ov.ov-gate {
+        background: rgba(8, 16, 50, 0.72);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .ov.ov-gate.show {
+        pointer-events: all;
+      }
+      .modal-msg {
+        font-family: var(--ui-font);
+        font-size: 0.95rem;
+        text-align: center;
+        color: #3a4560;
+        line-height: 1.5;
+        margin: 2px 4px 10px;
+      }
       .modal {
+        --ui-font:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
         background: #f4f6ff;
-        border-radius: 24px;
-        padding: 0 24px 24px;
+        border-radius: 22px;
+        padding: 0 22px 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
         max-width: 300px;
         box-shadow:
-          0 8px 0 rgba(0, 0, 0, 0.22),
-          0 12px 30px rgba(0, 0, 0, 0.3);
+          0 8px 0 rgba(0, 0, 0, 0.2),
+          0 14px 32px rgba(0, 0, 0, 0.32);
       }
       .modal-stripe {
         width: 100%;
-        height: 8px;
-        border-radius: 24px 24px 0 0;
+        height: 6px;
+        border-radius: 22px 22px 0 0;
         flex-shrink: 0;
         background: repeating-linear-gradient(
           90deg,
@@ -701,77 +958,89 @@
           #3dd865 60% 80%,
           #3dc8f5 80% 100%
         );
+        margin-bottom: 14px;
       }
       .modal-icon {
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         line-height: 1;
       }
       .modal-title {
-        font-family: "Bungee Spice", cursive;
+        font-family: "Jaro", sans-serif;
         font-size: 1.7rem;
         text-align: center;
-        filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.25));
+        color: #1c2440;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
       }
       .modal-lbl {
-        font-size: 0.6rem;
-        font-weight: 900;
-        letter-spacing: 1.5px;
+        font-family: var(--ui-font);
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 1.8px;
         text-transform: uppercase;
         color: #9aaac0;
+        margin-top: 4px;
       }
       .modal-pts {
-        font-family: "Bungee Spice", cursive;
-        font-size: 3rem;
+        font-family: "Jaro", sans-serif;
+        font-size: 2.8rem;
         line-height: 1;
-        filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.3));
+        color: #1c2440;
+        margin-bottom: 6px;
       }
-      .modal-best {
+      .modal-record {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         background: linear-gradient(160deg, #ffe84a, #ffd000);
         border-radius: 50px;
-        padding: 4px 14px;
-        font-weight: 900;
-        font-size: 0.9rem;
+        padding: 6px 16px;
+        font-family: var(--ui-font);
+        font-weight: 800;
+        font-size: 0.88rem;
         color: #664400;
-        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+        box-shadow: 0 3px 0 rgba(180, 130, 0, 0.35);
+        margin-bottom: 14px;
+        transition:
+          background 0.3s,
+          color 0.3s;
       }
-      .modal-newbest {
+      .modal-record.new {
         background: linear-gradient(160deg, #4ee472, #22b845);
-        border-radius: 50px;
-        padding: 3px 14px;
-        font-weight: 900;
-        font-size: 0.76rem;
         color: #fff;
-        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
-        animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 3px 0 rgba(0, 90, 30, 0.35);
+        animation: recordPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
-      @keyframes popIn {
-        from {
-          transform: scale(0) rotate(-8deg);
+      .modal-record .rec-icon {
+        font-size: 1.05rem;
+        line-height: 1;
+      }
+      @keyframes recordPop {
+        0% {
+          transform: scale(0.7) rotate(-6deg);
         }
-        to {
+        60% {
+          transform: scale(1.08) rotate(2deg);
+        }
+        100% {
           transform: scale(1) rotate(0);
         }
-      }
-      .modal-div {
-        width: 100%;
-        height: 1.5px;
-        background: rgba(0, 0, 0, 0.08);
-        margin: 4px 0;
       }
       .modal-btns {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         width: 100%;
       }
       .modal-btns .btn {
         width: 100%;
       }
       .modal-btns .btn > .f {
-        padding: 13px 20px;
+        padding: 12px 20px;
+        font-family: var(--ui-font);
+        font-weight: 800;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
       }
       .modal-row {
         display: flex;
@@ -782,27 +1051,12 @@
       }
       .modal-row .btn > .f {
         padding: 11px 8px;
-        font-size: 0.84rem;
+        font-size: 0.88rem;
       }
 
       /* ═══════════════════════════════════
-   ANIMATIONS
+   ANIMATIONS (GSAP handles placement/clearing/combo/pop — keep only CSS-only ones)
 ═══════════════════════════════════ */
-      @keyframes placeBlock {
-        0% {
-          transform: scale(0.5) rotate(-8deg);
-        }
-        60% {
-          transform: scale(1.1) rotate(3deg);
-        }
-        100% {
-          transform: scale(1) rotate(0);
-        }
-      }
-      .placed {
-        animation: placeBlock 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
-        z-index: 2;
-      }
 
       /* Predictive clear pulse — cells that will clear glow */
       .cell.will-clear {
@@ -862,73 +1116,109 @@
         }
       }
 
-      @keyframes clearCell {
-        0% {
-          transform: scale(1.08);
-          background: #fff500;
-          box-shadow: 0 0 14px #ffe000;
-        }
-        45% {
-          transform: scale(1.15);
-        }
-        100% {
-          transform: scale(0);
-          opacity: 0;
-        }
+      /* ═══ Explosion effects ═══ */
+      /* Lightning sweep across cleared row/column */
+      .sweep {
+        position: absolute;
+        pointer-events: none;
+        z-index: 5;
+        filter: blur(2.5px);
+        mix-blend-mode: screen;
       }
-      .clearing {
-        animation: clearCell 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-          forwards;
-        z-index: 3;
+      .sweep.h {
+        height: 12.5%;
+        width: 45%;
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.4) 30%,
+          #ffffff 50%,
+          rgba(255, 240, 120, 0.95) 55%,
+          rgba(255, 255, 255, 0.4) 70%,
+          transparent 100%
+        );
+      }
+      .sweep.v {
+        width: 12.5%;
+        height: 45%;
+        top: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.4) 30%,
+          #ffffff 50%,
+          rgba(255, 240, 120, 0.95) 55%,
+          rgba(255, 255, 255, 0.4) 70%,
+          transparent 100%
+        );
       }
 
-      @keyframes scorePop {
-        0% {
-          transform: scale(1);
-        }
-        40% {
-          transform: scale(1.4);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-      .pop {
-        animation: scorePop 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      /* Particle shards from each exploded cell */
+      .shard {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 2px;
+        margin-left: -3.5px;
+        margin-top: -3.5px;
+        pointer-events: none;
+        z-index: 6;
+        box-shadow:
+          0 0 6px rgba(255, 255, 255, 0.4),
+          0 0 12px rgba(255, 200, 60, 0.25);
       }
 
-      @keyframes comboFly {
-        0% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(0.6) rotate(-5deg);
-        }
-        20% {
-          transform: translate(-50%, -50%) scale(1.2) rotate(2deg);
-        }
-        70% {
-          opacity: 1;
-          transform: translate(-50%, -130px) scale(1.05);
-        }
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -170px) scale(0.95);
-        }
+      /* Radial shockwave ring */
+      .shockwave {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        margin-left: -9px;
+        margin-top: -9px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 240, 140, 0.95);
+        box-shadow:
+          0 0 22px rgba(255, 220, 80, 0.85),
+          inset 0 0 12px rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        z-index: 4;
       }
+
       .combo {
         position: absolute;
         left: 50%;
         top: 45%;
-        font-family: "Bungee Spice", cursive;
-        font-size: 1.9rem;
+        font-family: "Jaro", sans-serif;
+        font-size: 2rem;
         white-space: nowrap;
-        filter: drop-shadow(2px 4px 0 rgba(0, 0, 0, 0.55));
+        color: #ffe030;
+        text-shadow:
+          -2px -2px 0 #1a1a40,
+          2px -2px 0 #1a1a40,
+          -2px 2px 0 #1a1a40,
+          2px 2px 0 #1a1a40,
+          0 0 14px rgba(255, 210, 60, 0.7);
+        filter: drop-shadow(2px 5px 0 rgba(0, 0, 0, 0.55));
         pointer-events: none;
-        animation: comboFly 1.1s ease forwards;
         z-index: 60;
       }
     </style>
   </head>
   <body>
+    <!-- ══════════════ LOADING ══════════════ -->
+    <div id="sc-loading" class="loading-screen">
+      <div class="loading-logo">BLOCK<br />BLAST!</div>
+      <div class="loading-blocks">
+        <div class="lb lb1"></div>
+        <div class="lb lb2"></div>
+        <div class="lb lb3"></div>
+        <div class="lb lb4"></div>
+        <div class="lb lb5"></div>
+      </div>
+      <div class="loading-text">Đang tải...</div>
+    </div>
+
     <div id="app">
       <!-- ══════════════ HOME ══════════════ -->
       <div id="sc-home" class="screen active">
@@ -1000,17 +1290,16 @@
               <div class="modal-stripe"></div>
               <div class="modal-icon">⏸</div>
               <div class="modal-title">Tạm dừng</div>
-              <div class="modal-div"></div>
               <div class="modal-btns">
                 <button class="btn g" onclick="resume()">
-                  <span class="f">▶ Tiếp tục</span>
+                  <span class="f">Tiếp tục</span>
                 </button>
                 <div class="modal-row">
                   <button class="btn o" onclick="restart()">
-                    <span class="f">🔄 Lại</span>
+                    <span class="f">Chơi lại</span>
                   </button>
                   <button class="btn w" onclick="goHome()">
-                    <span class="f">✕ Thoát</span>
+                    <span class="f">Thoát</span>
                   </button>
                 </div>
               </div>
@@ -1025,19 +1314,16 @@
               <div class="modal-title">Game Over!</div>
               <div class="modal-lbl">Điểm của bạn</div>
               <div class="modal-pts" id="go-pts">0</div>
-              <div class="modal-best">
-                <span>👑</span><span id="go-best">0</span>
+              <div class="modal-record" id="go-record">
+                <span class="rec-icon">👑</span>
+                <span class="rec-text" id="go-best">Kỷ lục: 0</span>
               </div>
-              <div id="go-new" class="modal-newbest" style="display: none">
-                🎉 Kỷ lục mới!
-              </div>
-              <div class="modal-div"></div>
               <div class="modal-btns">
                 <button class="btn o" onclick="restart()">
-                  <span class="f">🔄 Chơi lại</span>
+                  <span class="f">Chơi lại</span>
                 </button>
                 <button class="btn w" onclick="goHome()">
-                  <span class="f">✕ Menu</span>
+                  <span class="f">Menu</span>
                 </button>
               </div>
             </div>
@@ -1045,16 +1331,92 @@
         </div>
 
         <div class="tray-area">
-          <div class="tray-hint">Kéo khối vào bảng</div>
+          <div class="tray-top">
+            <div class="tray-hint">Kéo khối vào bảng</div>
+            <button class="skill-btn" id="skill-btn" disabled>
+              <img src="assets/images/skill.jpeg" alt="Skill" />
+              <span class="skill-count" id="skill-count">0</span>
+            </button>
+          </div>
           <div class="tray" id="tray"></div>
         </div>
       </div>
 
       <!-- drag ghost -->
       <div id="dg"><div class="pmini" id="dg-inner"></div></div>
+
+      <!-- skill drag ghost -->
+      <div id="skill-dg" class="skill-ghost" style="display: none">
+        <img src="assets/images/skill.jpeg" alt="" />
+      </div>
+
+      <!-- ══════════════ INTRO GATE ══════════════ -->
+      <div class="ov ov-gate" id="ov-intro">
+        <div class="modal">
+          <div class="modal-stripe"></div>
+          <div class="modal-icon">🌸</div>
+          <div class="modal-title">
+            Bạn có phải<br />Quỳnh Trang không?
+          </div>
+          <div class="modal-btns">
+            <button class="btn g" onclick="introYes()">
+              <span class="f">Dĩ nhiên rồi</span>
+            </button>
+            <button class="btn w" onclick="introNo()">
+              <span class="f">Không</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════ REJECTION ══════════════ -->
+      <div class="ov ov-gate" id="ov-reject">
+        <div class="modal">
+          <div class="modal-stripe"></div>
+          <div class="modal-icon">🥺</div>
+          <div class="modal-title">Ui, xin lỗi!</div>
+          <div class="modal-msg">
+            Game này chỉ dành cho mình Trang thui,<br />
+            không dành cho bạn đâu 💔
+          </div>
+          <div class="modal-btns">
+            <button class="btn o" onclick="introBack()">
+              <span class="f">Quay lại</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- #app -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script>
+      /* ══ SFX ══ */
+      const SFX = {};
+      (function loadSfx() {
+        const a = new Audio("assets/sounds/drop.mp3");
+        a.preload = "auto";
+        a.volume = 0.6;
+        SFX.drop = a;
+      })();
+      function playSfx(name) {
+        const src = SFX[name];
+        if (!src) return;
+        try {
+          const s = src.cloneNode();
+          s.volume = src.volume;
+          s.play().catch(() => {});
+        } catch (e) {}
+      }
+      // Play drop sfx on any button click (event delegation)
+      document.addEventListener(
+        "click",
+        (e) => {
+          if (e.target.closest("button")) playSfx("drop");
+        },
+        true,
+      );
+
       /* ══ ROUTER ══ */
       function showScreen(id) {
         document.querySelectorAll(".screen").forEach((s) => {
@@ -1072,6 +1434,23 @@
       function goHome() {
         closeOvs();
         showScreen("home");
+      }
+
+      /* ══ INTRO GATE ══ */
+      function introYes() {
+        document.getElementById("ov-intro").classList.remove("show");
+      }
+      function introNo() {
+        document.getElementById("ov-intro").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("ov-reject").classList.add("show");
+        }, 280);
+      }
+      function introBack() {
+        document.getElementById("ov-reject").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("ov-intro").classList.add("show");
+        }, 280);
       }
 
       /* ══ HOME PREVIEW ══ */
@@ -1208,6 +1587,11 @@
       ];
 
       let brd, pts, best, tray, alive, paused;
+      let skills = 0,
+        skillDrag = false,
+        skillTid = null,
+        skillAnchor = { r: -99, c: -99 },
+        skillPrev = [];
       let di = -1,
         ghosts = [],
         anch = { r: -99, c: -99 },
@@ -1224,10 +1608,13 @@
         pts = 0;
         alive = true;
         paused = false;
+        skills = 0;
+        skillDrag = false;
         best = parseInt(localStorage.getItem("bb_best") || "0");
         document.getElementById("sc-score").textContent = "0";
         document.getElementById("sc-best").textContent =
           best.toLocaleString("vi-VN");
+        updateSkillUI();
         closeOvs();
         buildBoard();
         newTray();
@@ -1328,7 +1715,7 @@
 
       /* ── DRAG ── */
       function dragStart(e, idx, isTouch) {
-        if (!alive || paused) return;
+        if (!alive || paused || skillDrag) return;
         e.preventDefault();
         di = idx;
         dragging = true;
@@ -1403,9 +1790,17 @@
       function showGhost(cx, cy, piece) {
         clearGhosts();
         const { r, c } = bPos(cx, cy);
-        const ar = r - Math.floor(piece.shape.length / 2),
+        let ar = r - Math.floor(piece.shape.length / 2),
           ac = c - Math.floor(piece.shape[0].length / 2);
+        // Smart snap: if finger is near the board, clamp anchor so piece fits
+        const nearBoard = r >= -1 && r <= R && c >= -1 && c <= C;
+        if (nearBoard) {
+          ar = Math.max(0, Math.min(R - piece.shape.length, ar));
+          ac = Math.max(0, Math.min(C - piece.shape[0].length, ac));
+        }
         const ok = canPlace(piece.shape, ar, ac);
+        // Predict which cells will clear if placed here
+        const willSet = ok ? getClearSet(piece.shape, ar, ac) : null;
         piece.shape.forEach((row, dr) =>
           row.forEach((v, dc) => {
             if (!v) return;
@@ -1417,11 +1812,49 @@
             if (!brd[nr][nc]) {
               el.classList.add("ghost", piece.color);
               if (!ok) el.classList.add("inv");
+              if (willSet && willSet.has(`${nr},${nc}`))
+                el.classList.add("will-clear");
             }
             ghosts.push({ r: nr, c: nc });
           }),
         );
+        // Highlight already-filled cells that are part of a line about to clear
+        if (willSet) {
+          willSet.forEach((k) => {
+            const [rr, cc] = k.split(",").map(Number);
+            if (brd[rr][cc]) {
+              const el = GC(rr, cc);
+              if (el) {
+                el.classList.add("will-clear");
+                ghosts.push({ r: rr, c: cc });
+              }
+            }
+          });
+        }
         anch = { r: ar, c: ac };
+      }
+      function getClearSet(shape, sr, sc) {
+        const sim = brd.map((row) => row.slice());
+        shape.forEach((row, dr) =>
+          row.forEach((v, dc) => {
+            if (v) sim[sr + dr][sc + dc] = "x";
+          }),
+        );
+        const set = new Set();
+        for (let r = 0; r < R; r++)
+          if (sim[r].every((v) => v))
+            for (let c = 0; c < C; c++) set.add(`${r},${c}`);
+        for (let c = 0; c < C; c++)
+          if (sim.every((row) => row[c]))
+            for (let r = 0; r < R; r++) set.add(`${r},${c}`);
+        return set;
+      }
+      function haptic(d) {
+        if (navigator.vibrate) {
+          try {
+            navigator.vibrate(d);
+          } catch (e) {}
+        }
       }
       function clearGhosts() {
         ghosts.forEach(({ r, c }) => {
@@ -1450,9 +1883,21 @@
         if (di < 0) return;
         const p = tray[di];
         if (!canPlace(p.shape, anch.r, anch.c)) {
+          // Invalid drop — shake tray slot + short haptic
+          if (slot) {
+            slot.classList.remove("shake");
+            void slot.offsetWidth; // restart animation
+            slot.classList.add("shake");
+            setTimeout(() => slot.classList.remove("shake"), 400);
+          }
+          haptic(18);
           di = -1;
           return;
         }
+        // Valid drop — GSAP staggered placement
+        haptic(10);
+        playSfx("drop");
+        const placedEls = [];
         p.shape.forEach((row, dr) =>
           row.forEach((v, dc) => {
             if (!v) return;
@@ -1460,27 +1905,42 @@
               nc = anch.c + dc;
             brd[nr][nc] = p.color;
             const el = GC(nr, nc);
-            el.className = `cell filled ${p.color} placed`;
-            setTimeout(() => el?.classList.remove("placed"), 230);
+            el.className = `cell filled ${p.color}`;
+            placedEls.push(el);
           }),
+        );
+        gsap.fromTo(
+          placedEls,
+          { scale: 0.35, rotation: -12, opacity: 0.4 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.42,
+            ease: "back.out(2.6)",
+            stagger: { each: 0.035, from: "start" },
+            overwrite: "auto",
+            clearProps: "transform,opacity",
+          },
         );
         tray[di].used = true;
         di = -1;
-        const cl = doClears();
-        addPts(cl);
-        if (tray.every((t) => t.used))
-          setTimeout(() => {
-            newTray();
-            checkOver();
-          }, 280);
-        else {
-          renderTray();
+        const allUsed = tray.every((t) => t.used);
+        const postDrop = () => {
+          if (allUsed) newTray();
+          else renderTray();
           checkOver();
+        };
+        const cl = doClears(postDrop);
+        addPts(cl);
+        if (cl === 0) {
+          if (allUsed) setTimeout(postDrop, 320);
+          else postDrop();
         }
       }
 
       /* Clear */
-      function doClears() {
+      function doClears(onDone) {
         const fR = [],
           fC = [];
         for (let r = 0; r < R; r++) if (brd[r].every((v) => v)) fR.push(r);
@@ -1494,19 +1954,229 @@
         fC.forEach((c) => {
           for (let r = 0; r < R; r++) fl.add(`${r},${c}`);
         });
+        const clearEls = [];
         fl.forEach((k) => {
           const [r, c] = k.split(",").map(Number);
-          GC(r, c)?.classList.add("clearing");
+          const el = GC(r, c);
+          if (el) clearEls.push(el);
         });
-        setTimeout(() => {
-          fR.forEach((r) => {
-            for (let c = 0; c < C; c++) brd[r][c] = null;
+
+        // Grant 1 skill per line cleared
+        skills += tot;
+        updateSkillUI();
+        const skillBtn = document.getElementById("skill-btn");
+        gsap.fromTo(
+          skillBtn,
+          { scale: 1 },
+          {
+            scale: 1.3,
+            duration: 0.16,
+            ease: "back.out(3)",
+            yoyo: true,
+            repeat: 1,
+            overwrite: "auto",
+          },
+        );
+        const face = document.getElementById("board-face");
+        const boardEl = document.getElementById("board");
+        const boardRect = boardEl.getBoundingClientRect();
+        const cellW = boardRect.width / C;
+        const cellH = boardRect.height / R;
+
+        // Flash board face
+        face.classList.remove("flash");
+        void face.offsetWidth;
+        face.classList.add("flash");
+
+        // Full-screen shake — punchy impact, stronger for multi-line clears
+        const appEl = document.getElementById("app");
+        const sX = tot >= 2 ? 12 : 7;
+        const sY = tot >= 2 ? 6 : 3;
+        gsap.killTweensOf(appEl, "x,y");
+        gsap.set(appEl, { x: 0, y: 0 });
+        gsap.to(appEl, {
+          keyframes: {
+            x: [-sX, sX, -sX * 0.66, sX * 0.66, -sX * 0.33, 0],
+            y: [-sY, sY, -sY * 0.66, sY * 0.66, -sY * 0.33, 0],
+            easeEach: "power1.inOut",
+          },
+          duration: 0.42,
+        });
+
+        // Stronger haptic for multi-line clears
+        haptic(tot >= 2 ? [25, 30, 45] : 22);
+
+        // ═══ Lightning sweeps along each cleared row/column ═══
+        fR.forEach((r) => {
+          const sw = document.createElement("div");
+          sw.className = "sweep h";
+          sw.style.top = `${r * 12.5}%`;
+          boardEl.appendChild(sw);
+          gsap.fromTo(
+            sw,
+            { left: "-45%", opacity: 0 },
+            {
+              left: "100%",
+              opacity: 1,
+              duration: 0.32,
+              ease: "power2.out",
+              onComplete: () =>
+                gsap.to(sw, {
+                  opacity: 0,
+                  duration: 0.15,
+                  onComplete: () => sw.remove(),
+                }),
+            },
+          );
+        });
+        fC.forEach((c) => {
+          const sw = document.createElement("div");
+          sw.className = "sweep v";
+          sw.style.left = `${c * 12.5}%`;
+          boardEl.appendChild(sw);
+          gsap.fromTo(
+            sw,
+            { top: "-45%", opacity: 0 },
+            {
+              top: "100%",
+              opacity: 1,
+              duration: 0.32,
+              ease: "power2.out",
+              onComplete: () =>
+                gsap.to(sw, {
+                  opacity: 0,
+                  duration: 0.15,
+                  onComplete: () => sw.remove(),
+                }),
+            },
+          );
+        });
+
+        // ═══ Shockwaves at center of each line (slight delay to align with peak) ═══
+        const spawnShock = (x, y) => {
+          const w = document.createElement("div");
+          w.className = "shockwave";
+          w.style.left = `${x}px`;
+          w.style.top = `${y}px`;
+          boardEl.appendChild(w);
+          gsap.fromTo(
+            w,
+            { scale: 0.3, opacity: 0.9 },
+            {
+              scale: 14,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power2.out",
+              onComplete: () => w.remove(),
+            },
+          );
+        };
+        gsap.delayedCall(0.1, () => {
+          fR.forEach((r) =>
+            spawnShock(boardRect.width / 2, (r + 0.5) * cellH),
+          );
+          fC.forEach((c) =>
+            spawnShock((c + 0.5) * cellW, boardRect.height / 2),
+          );
+        });
+
+        // ═══ Particle shards from each cell ═══
+        const spawnShards = (cell) => {
+          const rect = cell.getBoundingClientRect();
+          const bg = window.getComputedStyle(cell).backgroundColor;
+          const cx = rect.left - boardRect.left + rect.width / 2;
+          const cy = rect.top - boardRect.top + rect.height / 2;
+          const n = 6;
+          for (let i = 0; i < n; i++) {
+            const s = document.createElement("div");
+            s.className = "shard";
+            s.style.background = bg;
+            s.style.left = `${cx}px`;
+            s.style.top = `${cy}px`;
+            boardEl.appendChild(s);
+            const angle =
+              (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const dist = 28 + Math.random() * 46;
+            gsap.to(s, {
+              x: Math.cos(angle) * dist,
+              y: Math.sin(angle) * dist + 22 + Math.random() * 28,
+              rotation: (Math.random() - 0.5) * 720,
+              scale: 0.15 + Math.random() * 0.45,
+              opacity: 0,
+              duration: 0.55 + Math.random() * 0.3,
+              ease: "power2.out",
+              onComplete: () => s.remove(),
+            });
+          }
+        };
+
+        // Confetti burst for 2+ combos
+        if (tot >= 2 && typeof confetti === "function") {
+          const rect = face.getBoundingClientRect();
+          confetti({
+            particleCount: 30 + tot * 28,
+            spread: 60 + tot * 10,
+            startVelocity: 30 + tot * 4,
+            origin: {
+              x: (rect.left + rect.width / 2) / window.innerWidth,
+              y: (rect.top + rect.height / 2) / window.innerHeight,
+            },
+            colors: [
+              "#f44a4a",
+              "#3dd865",
+              "#3dc8f5",
+              "#b860f5",
+              "#ff9f30",
+              "#ffe030",
+              "#f560aa",
+              "#30d8c8",
+            ],
+            scalar: 0.9,
+            ticks: 200,
+            zIndex: 100,
           });
-          fC.forEach((c) => {
-            for (let r = 0; r < R; r++) brd[r][c] = null;
-          });
-          renderBoard();
-        }, 380);
+        }
+
+        // Kill placement tweens and reset inline transforms on cleared cells
+        gsap.killTweensOf(clearEls);
+        gsap.set(clearEls, { clearProps: "transform,opacity" });
+
+        // Main cell explosion: bright pop → shard burst → shrink & fade
+        gsap
+          .timeline({
+            onComplete: () => {
+              fR.forEach((r) => {
+                for (let c = 0; c < C; c++) brd[r][c] = null;
+              });
+              fC.forEach((c) => {
+                for (let r = 0; r < R; r++) brd[r][c] = null;
+              });
+              gsap.set(clearEls, { clearProps: "all" });
+              renderBoard();
+              face.classList.remove("flash");
+              if (onDone) onDone();
+            },
+          })
+          .set(clearEls, { zIndex: 3 })
+          .to(clearEls, {
+            scale: 1.28,
+            filter: "brightness(2.3) saturate(0.55)",
+            duration: 0.14,
+            stagger: { each: 0.02, from: "start" },
+            ease: "power2.out",
+          })
+          .call(() => clearEls.forEach(spawnShards))
+          .to(
+            clearEls,
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.32,
+              stagger: { each: 0.02, from: "start" },
+              ease: "power3.in",
+            },
+            "-=0.02",
+          );
         return tot;
       }
       function addPts(cl) {
@@ -1521,25 +2191,307 @@
         }
         const el = document.getElementById("sc-score");
         el.textContent = pts.toLocaleString("vi-VN");
-        el.classList.add("pop");
-        setTimeout(() => el.classList.remove("pop"), 200);
+        // Elastic score pop
+        gsap.fromTo(
+          el,
+          { scale: 1 },
+          {
+            scale: 1.4,
+            duration: 0.14,
+            ease: "back.out(3)",
+            yoyo: true,
+            repeat: 1,
+            overwrite: "auto",
+          },
+        );
         document.getElementById("sc-best").textContent =
           best.toLocaleString("vi-VN");
-        if (cl >= 2) {
-          const L = {
-            2: "DOUBLE! 🔥",
-            3: "TRIPLE! 💥",
-            4: "MEGA! ⚡",
-            5: "ULTRA! 🌟",
-          };
+        if (cl >= 1) {
           const bf = document.getElementById("board-face");
           const el2 = document.createElement("div");
           el2.className = "combo";
-          el2.textContent = L[cl] || `${cl}× COMBO!`;
+          el2.textContent = "Dĩ nhiên rồi";
           bf.appendChild(el2);
-          setTimeout(() => el2.remove(), 1150);
+          // Larger text for multi-line combos
+          const peakScale = 1 + Math.min(cl - 1, 3) * 0.12;
+          // GSAP combo: pop in → peak → float up → fade out
+          gsap.set(el2, { xPercent: -50, yPercent: -50 });
+          gsap
+            .timeline({ onComplete: () => el2.remove() })
+            .from(el2, {
+              scale: 0.4,
+              rotation: -8,
+              opacity: 0,
+              duration: 0.28,
+              ease: "back.out(3.2)",
+            })
+            .to(el2, {
+              scale: peakScale,
+              rotation: 2,
+              duration: 0.15,
+              ease: "power1.out",
+            })
+            .to(
+              el2,
+              {
+                y: -150,
+                scale: peakScale * 0.86,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.in",
+              },
+              "+=0.25",
+            );
         }
       }
+      /* ══ SKILL: bomb 3x3 ══ */
+      function updateSkillUI() {
+        const btn = document.getElementById("skill-btn");
+        const cnt = document.getElementById("skill-count");
+        if (!btn || !cnt) return;
+        cnt.textContent = skills;
+        btn.disabled = skills <= 0;
+      }
+      function useSkill(r, c) {
+        if (skills <= 0 || !alive || paused) return;
+        // Collect 3x3 filled cells around (r, c)
+        const cells = [],
+          coords = [];
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr,
+              nc = c + dc;
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+            if (brd[nr][nc]) {
+              cells.push(GC(nr, nc));
+              coords.push({ r: nr, c: nc });
+            }
+          }
+        }
+        // Consume skill regardless (even if 3x3 all empty — user chose the spot)
+        skills--;
+        updateSkillUI();
+        if (cells.length === 0) return;
+
+        haptic(25);
+        playSfx("drop");
+
+        const boardEl = document.getElementById("board");
+        const boardRect = boardEl.getBoundingClientRect();
+        const cellW = boardRect.width / C;
+        const cellH = boardRect.height / R;
+
+        // Shockwave from center of clicked cell
+        const w = document.createElement("div");
+        w.className = "shockwave";
+        w.style.left = `${(c + 0.5) * cellW}px`;
+        w.style.top = `${(r + 0.5) * cellH}px`;
+        boardEl.appendChild(w);
+        gsap.fromTo(
+          w,
+          { scale: 0.3, opacity: 0.9 },
+          {
+            scale: 10,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            onComplete: () => w.remove(),
+          },
+        );
+
+        // Shards from each cell
+        cells.forEach((cell) => {
+          const rect = cell.getBoundingClientRect();
+          const bg = window.getComputedStyle(cell).backgroundColor;
+          const cX = rect.left - boardRect.left + rect.width / 2;
+          const cY = rect.top - boardRect.top + rect.height / 2;
+          const n = 6;
+          for (let i = 0; i < n; i++) {
+            const s = document.createElement("div");
+            s.className = "shard";
+            s.style.background = bg;
+            s.style.left = `${cX}px`;
+            s.style.top = `${cY}px`;
+            boardEl.appendChild(s);
+            const angle =
+              (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const dist = 28 + Math.random() * 46;
+            gsap.to(s, {
+              x: Math.cos(angle) * dist,
+              y: Math.sin(angle) * dist + 22 + Math.random() * 28,
+              rotation: (Math.random() - 0.5) * 720,
+              scale: 0.15 + Math.random() * 0.45,
+              opacity: 0,
+              duration: 0.55 + Math.random() * 0.3,
+              ease: "power2.out",
+              onComplete: () => s.remove(),
+            });
+          }
+        });
+
+        // Screen shake
+        const appEl = document.getElementById("app");
+        gsap.killTweensOf(appEl, "x,y");
+        gsap.set(appEl, { x: 0, y: 0 });
+        gsap.to(appEl, {
+          keyframes: {
+            x: [-8, 8, -5, 5, -2, 0],
+            y: [-4, 4, -2, 2, -1, 0],
+            easeEach: "power1.inOut",
+          },
+          duration: 0.4,
+        });
+
+        // Board flash
+        const face = document.getElementById("board-face");
+        face.classList.remove("flash");
+        void face.offsetWidth;
+        face.classList.add("flash");
+
+        // Cell explosion timeline
+        gsap.killTweensOf(cells);
+        gsap.set(cells, { clearProps: "transform,opacity" });
+        gsap
+          .timeline({
+            onComplete: () => {
+              coords.forEach(({ r, c }) => (brd[r][c] = null));
+              gsap.set(cells, { clearProps: "all" });
+              renderBoard();
+              face.classList.remove("flash");
+              // Skill-triggered explosion may also complete a line → chain clear pass
+              const cl = doClears(() => checkOver());
+              addPts(cl);
+              if (cl === 0) checkOver();
+            },
+          })
+          .set(cells, { zIndex: 3 })
+          .to(cells, {
+            scale: 1.28,
+            filter: "brightness(2.3) saturate(0.55)",
+            duration: 0.14,
+            stagger: { each: 0.02, from: "start" },
+            ease: "power2.out",
+          })
+          .to(
+            cells,
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.32,
+              stagger: { each: 0.02, from: "start" },
+              ease: "power3.in",
+            },
+            "-=0.02",
+          );
+      }
+      /* Skill drag-drop — drag skill button onto a board cell to detonate 3x3 */
+      function skillStart(e, isTouch) {
+        if (!alive || paused || skills <= 0 || skillDrag || dragging) return;
+        e.preventDefault();
+        e.stopPropagation();
+        skillDrag = true;
+        document.getElementById("skill-btn").classList.add("active");
+        document.getElementById("skill-dg").style.display = "block";
+        const cx = isTouch ? e.touches[0].clientX : e.clientX;
+        const cy = isTouch ? e.touches[0].clientY : e.clientY;
+        moveSkillGhost(cx, cy);
+        showSkillPreview(cx, cy);
+        if (isTouch) {
+          skillTid = e.touches[0].identifier;
+          document.addEventListener("touchmove", onSkillTM, {
+            passive: false,
+          });
+          document.addEventListener("touchend", onSkillTE, {
+            passive: false,
+          });
+        } else {
+          document.addEventListener("mousemove", onSkillMM);
+          document.addEventListener("mouseup", onSkillMU);
+        }
+      }
+      function onSkillMM(e) {
+        if (!skillDrag) return;
+        moveSkillGhost(e.clientX, e.clientY);
+        showSkillPreview(e.clientX, e.clientY);
+      }
+      function onSkillMU(e) {
+        skillDropAt(e.clientX, e.clientY);
+        document.removeEventListener("mousemove", onSkillMM);
+        document.removeEventListener("mouseup", onSkillMU);
+      }
+      function onSkillTM(e) {
+        e.preventDefault();
+        const t = [...e.touches].find((t) => t.identifier === skillTid);
+        if (t) {
+          moveSkillGhost(t.clientX, t.clientY);
+          showSkillPreview(t.clientX, t.clientY);
+        }
+      }
+      function onSkillTE(e) {
+        const t = [...e.changedTouches].find(
+          (t) => t.identifier === skillTid,
+        );
+        if (t) skillDropAt(t.clientX, t.clientY);
+        document.removeEventListener("touchmove", onSkillTM);
+        document.removeEventListener("touchend", onSkillTE);
+        skillTid = null;
+      }
+      function moveSkillGhost(cx, cy) {
+        const dg = document.getElementById("skill-dg");
+        dg.style.left = cx + "px";
+        dg.style.top = cy - 60 + "px";
+      }
+      function showSkillPreview(cx, cy) {
+        clearSkillPreview();
+        const { r, c } = bPos(cx, cy);
+        if (r < 0 || r >= R || c < 0 || c >= C) {
+          skillAnchor = { r: -99, c: -99 };
+          return;
+        }
+        skillAnchor = { r, c };
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr,
+              nc = c + dc;
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+            const el = GC(nr, nc);
+            if (el) {
+              el.classList.add("skill-preview");
+              skillPrev.push({ r: nr, c: nc });
+            }
+          }
+        }
+      }
+      function clearSkillPreview() {
+        skillPrev.forEach(({ r, c }) => {
+          const el = GC(r, c);
+          if (el) el.classList.remove("skill-preview");
+        });
+        skillPrev = [];
+      }
+      function skillDropAt(cx, cy) {
+        skillDrag = false;
+        clearSkillPreview();
+        document.getElementById("skill-dg").style.display = "none";
+        document.getElementById("skill-btn").classList.remove("active");
+        if (skillAnchor.r < 0) {
+          skillAnchor = { r: -99, c: -99 };
+          return;
+        }
+        const { r, c } = skillAnchor;
+        skillAnchor = { r: -99, c: -99 };
+        useSkill(r, c);
+      }
+      // Attach drag listeners to skill button
+      (function bindSkillBtn() {
+        const btn = document.getElementById("skill-btn");
+        if (!btn) return;
+        btn.addEventListener("mousedown", (e) => skillStart(e, false));
+        btn.addEventListener("touchstart", (e) => skillStart(e, true), {
+          passive: false,
+        });
+      })();
+
       function checkOver() {
         for (const p of tray) {
           if (p.used) continue;
@@ -1552,11 +2504,17 @@
           const isNew = pts > 0 && pts >= best;
           document.getElementById("go-pts").textContent =
             pts.toLocaleString("vi-VN");
-          document.getElementById("go-best").textContent =
-            "Kỷ lục: " + best.toLocaleString("vi-VN");
-          document.getElementById("go-new").style.display = isNew
-            ? "block"
-            : "none";
+          const rec = document.getElementById("go-record");
+          const recText = document.getElementById("go-best");
+          if (isNew) {
+            rec.classList.add("new");
+            recText.textContent =
+              "Kỷ lục mới: " + best.toLocaleString("vi-VN");
+          } else {
+            rec.classList.remove("new");
+            recText.textContent =
+              "Kỷ lục: " + best.toLocaleString("vi-VN");
+          }
           document.getElementById("ov-gameover").classList.add("show");
         }, 480);
       }
@@ -1564,6 +2522,21 @@
       /* Boot */
       buildPreview();
       updateHomeBest();
+
+      /* Loading screen fade-out — wait for fonts + min display time */
+      const MIN_LOAD_MS = 850;
+      Promise.all([
+        document.fonts && document.fonts.ready
+          ? document.fonts.ready
+          : Promise.resolve(),
+        new Promise((r) => setTimeout(r, MIN_LOAD_MS)),
+      ]).then(() => {
+        const ls = document.getElementById("sc-loading");
+        if (ls) ls.classList.add("hide");
+        setTimeout(() => {
+          document.getElementById("ov-intro").classList.add("show");
+        }, 350);
+      });
     </script>
   </body>
 </html>
