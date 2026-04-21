@@ -8,7 +8,9 @@
     />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Block Blast</title>
+    <!-- favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/skill.jpeg" />
+    <title>Quynh Trang</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap"
       rel="stylesheet"
@@ -1355,9 +1357,7 @@
         <div class="modal">
           <div class="modal-stripe"></div>
           <div class="modal-icon">🌸</div>
-          <div class="modal-title">
-            Bạn có phải<br />Quỳnh Trang không?
-          </div>
+          <div class="modal-title">Bạn có phải<br />Quỳnh Trang không?</div>
           <div class="modal-btns">
             <button class="btn g" onclick="introYes()">
               <span class="f">Dĩ nhiên rồi</span>
@@ -2072,9 +2072,7 @@
           );
         };
         gsap.delayedCall(0.1, () => {
-          fR.forEach((r) =>
-            spawnShock(boardRect.width / 2, (r + 0.5) * cellH),
-          );
+          fR.forEach((r) => spawnShock(boardRect.width / 2, (r + 0.5) * cellH));
           fC.forEach((c) =>
             spawnShock((c + 0.5) * cellW, boardRect.height / 2),
           );
@@ -2094,8 +2092,7 @@
             s.style.left = `${cx}px`;
             s.style.top = `${cy}px`;
             boardEl.appendChild(s);
-            const angle =
-              (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const angle = (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
             const dist = 28 + Math.random() * 46;
             gsap.to(s, {
               x: Math.cos(angle) * dist,
@@ -2313,8 +2310,7 @@
             s.style.left = `${cX}px`;
             s.style.top = `${cY}px`;
             boardEl.appendChild(s);
-            const angle =
-              (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const angle = (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
             const dist = 28 + Math.random() * 46;
             gsap.to(s, {
               x: Math.cos(angle) * dist,
@@ -2428,9 +2424,7 @@
         }
       }
       function onSkillTE(e) {
-        const t = [...e.changedTouches].find(
-          (t) => t.identifier === skillTid,
-        );
+        const t = [...e.changedTouches].find((t) => t.identifier === skillTid);
         if (t) skillDropAt(t.clientX, t.clientY);
         document.removeEventListener("touchmove", onSkillTM);
         document.removeEventListener("touchend", onSkillTE);
@@ -2508,12 +2502,10 @@
           const recText = document.getElementById("go-best");
           if (isNew) {
             rec.classList.add("new");
-            recText.textContent =
-              "Kỷ lục mới: " + best.toLocaleString("vi-VN");
+            recText.textContent = "Kỷ lục mới: " + best.toLocaleString("vi-VN");
           } else {
             rec.classList.remove("new");
-            recText.textContent =
-              "Kỷ lục: " + best.toLocaleString("vi-VN");
+            recText.textContent = "Kỷ lục: " + best.toLocaleString("vi-VN");
           }
           document.getElementById("ov-gameover").classList.add("show");
         }, 480);
