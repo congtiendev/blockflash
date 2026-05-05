@@ -1,0 +1,2751 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/board-bg.png" />
+    <title>Thu Phuong</title>
+
+    <!-- Social share preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Thu Phương" />
+    <meta
+      property="og:description"
+      content="Game này chỉ dành cho mình Phương thui"
+    />
+    <meta property="og:image" content="assets/images/skill.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thu Phương" />
+    <meta
+      name="twitter:description"
+      content="Game này chỉ dành cho mình Phương thui"
+    />
+    <meta name="twitter:image" content="assets/images/skill.jpeg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ═══ RESET ═══ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        touch-action: none;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffd6e0;
+        font-family: "Jaro", sans-serif;
+      }
+
+      /* ═══ LOADING SCREEN ═══ */
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        background: linear-gradient(
+          170deg,
+          #ffe0ec 0%,
+          #ffb8cc 40%,
+          #f48aaf 100%
+        );
+        background-image:
+          radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.25) 2px,
+            transparent 2px
+          ),
+          linear-gradient(170deg, #ffe0ec 0%, #ffb8cc 40%, #f48aaf 100%);
+        background-size:
+          28px 28px,
+          100% 100%;
+        transition:
+          opacity 0.5s ease,
+          visibility 0s linear 0.5s;
+      }
+      .loading-screen.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-logo {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(2.8rem, 13vw, 4.4rem);
+        line-height: 0.92;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 1px;
+        filter: drop-shadow(3px 5px 0 rgba(0, 0, 0, 0.5));
+        animation: loadLogoFloat 2.2s ease-in-out infinite;
+      }
+      @keyframes loadLogoFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+        50% {
+          transform: translateY(-6px) rotate(1.5deg);
+        }
+      }
+      .loading-blocks {
+        display: flex;
+        gap: 10px;
+      }
+      .lb {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 1.5px solid rgba(0, 0, 0, 0.22);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.3),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+        animation: lbBounce 0.95s ease-in-out infinite;
+      }
+      .lb1 {
+        background: #f44a4a;
+      }
+      .lb2 {
+        background: #ff9f30;
+        animation-delay: 0.1s;
+      }
+      .lb3 {
+        background: #ffe030;
+        animation-delay: 0.2s;
+      }
+      .lb4 {
+        background: #4a90e2;
+        animation-delay: 0.3s;
+      }
+      .lb5 {
+        background: #3dc8f5;
+        animation-delay: 0.4s;
+      }
+      @keyframes lbBounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        30% {
+          transform: translateY(-22px) scale(1.12);
+        }
+      }
+      .loading-text {
+        font-family: "Jaro", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+      }
+
+      /* ═══ APP SHELL ═══ */
+      #app {
+        position: relative;
+        width: min(430px, 100vw);
+        height: 100dvh; /* dynamic viewport height */
+        overflow: hidden;
+        background: linear-gradient(
+          170deg,
+          #ffe0ec 0%,
+          #ffb8cc 45%,
+          #f48aaf 100%
+        );
+        background-image:
+          radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.18) 2px,
+            transparent 2px
+          ),
+          linear-gradient(170deg, #ffe0ec 0%, #ffb8cc 45%, #f48aaf 100%);
+        background-size:
+          28px 28px,
+          100% 100%;
+      }
+
+      /* ═══ SCREENS ═══ */
+      .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+      }
+      .screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.97);
+      }
+      .screen.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: none;
+      }
+
+      /* ═══ PUSHABLE BUTTON ═══ */
+      .btn {
+        display: inline-flex;
+        align-items: stretch;
+        padding: 0;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        outline: none;
+      }
+      .btn > .f {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 13px 28px;
+        border-radius: 12px;
+        font-family: "Jaro", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.3px;
+        color: #fff;
+        white-space: nowrap;
+        transform: translateY(-5px);
+        transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        pointer-events: none;
+      }
+      .btn:active > .f {
+        transform: translateY(-2px);
+      }
+      /* variants */
+      .g {
+        background: hsl(220 75% 32%);
+      }
+      .g > .f {
+        background: hsl(218 78% 55%);
+      }
+      .o {
+        background: hsl(26 100% 28%);
+      }
+      .o > .f {
+        background: hsl(28 100% 46%);
+      }
+      .w {
+        background: hsl(230 18% 52%);
+      }
+      .w > .f {
+        background: hsl(230 30% 95%);
+        color: #334;
+        font-family: "Jaro", sans-serif;
+        font-weight: 900;
+        font-size: 0.88rem;
+      }
+
+      /* icon button */
+      .ibtn {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow:
+          0 4px 0 rgba(0, 0, 0, 0.18),
+          0 5px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+        transition:
+          transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          box-shadow 0.1s;
+        font-family: "Jaro", sans-serif;
+        font-weight: 900;
+      }
+      .ibtn:active {
+        transform: translateY(0);
+        box-shadow:
+          0 1px 0 rgba(0, 0, 0, 0.18),
+          0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .ibtn.danger {
+        background: rgba(255, 80, 80, 0.15);
+        color: #cc1010;
+      }
+      .ibtn.warn {
+        background: rgba(255, 210, 40, 0.18);
+        color: #886600;
+      }
+
+      /* ═══════════════════════════════════
+   ① HOME
+═══════════════════════════════════ */
+      #sc-home {
+        justify-content: flex-start;
+        padding: 0;
+        background-image: url("assets/images/skill.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .home-top {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: clamp(10px, 3vw, 18px) clamp(12px, 4vw, 20px) 0;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .home-logo {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(2.6rem, 12vw, 4rem);
+        line-height: 0.92;
+        text-align: center;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #c44a78,
+          2px -2px 0 #c44a78,
+          -2px 2px 0 #c44a78,
+          2px 2px 0 #c44a78,
+          0 6px 0 rgba(0, 0, 0, 0.35),
+          0 10px 22px rgba(0, 0, 0, 0.4);
+        margin: clamp(4px, 2vw, 12px) 0 clamp(8px, 2vw, 14px);
+        animation: float 3s ease-in-out infinite;
+        flex-shrink: 0;
+      }
+      .home-spacer {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+      }
+      .home-tagline {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(0.95rem, 4vw, 1.15rem);
+        color: #fff;
+        text-align: center;
+        letter-spacing: 0.5px;
+        padding: 7px 18px;
+        margin: 0 auto clamp(8px, 2vw, 14px);
+        background: rgba(244, 138, 175, 0.85);
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        border-radius: 999px;
+        box-shadow:
+          0 4px 0 rgba(150, 50, 90, 0.45),
+          0 8px 18px rgba(0, 0, 0, 0.25);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        animation: tagBob 2.6s ease-in-out infinite;
+      }
+      .tg-heart {
+        color: #fff;
+        font-size: 0.95em;
+        filter: drop-shadow(0 1px 0 rgba(150, 50, 90, 0.5));
+      }
+      @keyframes tagBob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      .home-deco {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .deco-blk {
+        position: absolute;
+        width: clamp(28px, 8vw, 40px);
+        height: clamp(28px, 8vw, 40px);
+        border-radius: 9px;
+        border: 1.8px solid rgba(0, 0, 0, 0.22);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.32),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.22),
+          0 5px 14px rgba(0, 0, 0, 0.25);
+        opacity: 0.92;
+        animation: decoFloat 4s ease-in-out infinite;
+      }
+      .deco-blk.d1 {
+        top: 22%;
+        left: 5%;
+        background: #f44a4a;
+        animation-delay: 0s;
+        transform: rotate(-12deg);
+      }
+      .deco-blk.d2 {
+        top: 14%;
+        right: 6%;
+        background: #ffe030;
+        animation-delay: 0.5s;
+        transform: rotate(15deg);
+      }
+      .deco-blk.d3 {
+        top: 48%;
+        left: 3%;
+        background: #f560aa;
+        animation-delay: 1s;
+        transform: rotate(8deg);
+      }
+      .deco-blk.d4 {
+        top: 52%;
+        right: 4%;
+        background: #4a90e2;
+        animation-delay: 1.5s;
+        transform: rotate(-10deg);
+      }
+      .deco-blk.d5 {
+        bottom: 22%;
+        left: 8%;
+        background: #ff9f30;
+        animation-delay: 2s;
+        transform: rotate(18deg);
+      }
+      .deco-blk.d6 {
+        bottom: 18%;
+        right: 7%;
+        background: #b860f5;
+        animation-delay: 2.5s;
+        transform: rotate(-15deg);
+      }
+      @keyframes decoFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(var(--r, 0deg));
+        }
+        50% {
+          transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg));
+        }
+      }
+      .deco-blk.d1 {
+        --r: -12deg;
+      }
+      .deco-blk.d2 {
+        --r: 15deg;
+      }
+      .deco-blk.d3 {
+        --r: 8deg;
+      }
+      .deco-blk.d4 {
+        --r: -10deg;
+      }
+      .deco-blk.d5 {
+        --r: 18deg;
+      }
+      .deco-blk.d6 {
+        --r: -15deg;
+      }
+      .deco-spark {
+        position: absolute;
+        color: #fff;
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        text-shadow: 0 0 10px rgba(255, 200, 220, 0.9);
+        animation: sparkTwinkle 1.8s ease-in-out infinite;
+      }
+      .deco-spark.s1 {
+        top: 30%;
+        left: 18%;
+        animation-delay: 0.2s;
+      }
+      .deco-spark.s2 {
+        top: 38%;
+        right: 16%;
+        animation-delay: 0.9s;
+      }
+      .deco-spark.s3 {
+        bottom: 30%;
+        left: 22%;
+        animation-delay: 1.4s;
+      }
+      @keyframes sparkTwinkle {
+        0%,
+        100% {
+          opacity: 0.4;
+          transform: scale(0.85);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(1deg);
+        }
+      }
+
+      /* Best score */
+      .best-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        background: linear-gradient(160deg, #ffe84a, #ffd000);
+        border-radius: 18px;
+        box-shadow:
+          0 5px 0 #aa8000,
+          0 7px 16px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        margin: 0 clamp(16px, 5vw, 28px) clamp(10px, 3vw, 18px);
+        width: calc(100% - clamp(32px, 10vw, 56px));
+        flex-shrink: 0;
+      }
+      .best-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        gap: 1px;
+        background: rgba(0, 0, 0, 0.07);
+        border-right: 2px solid rgba(0, 0, 0, 0.08);
+      }
+      .best-left .crown {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+      .best-left .lbl {
+        font-size: 0.55rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .best-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+      }
+      .best-right .val {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
+      }
+
+      /* Preview board */
+      .prev-wrap {
+        flex: 1;
+        min-height: 0;
+        margin: 0 clamp(16px, 5vw, 28px) clamp(8px, 2vw, 14px);
+        width: calc(100% - clamp(32px, 10vw, 56px));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .prev-box {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 100%;
+      }
+      .prev-slab {
+        position: absolute;
+        left: 7px;
+        right: -7px;
+        top: 7px;
+        bottom: -7px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #8a3855, #5a2540);
+      }
+      .prev-face {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(160deg, #ffb8cc, #f49bb6);
+        border-radius: 16px;
+        padding: 8px;
+        box-shadow:
+          inset 0 2px 10px rgba(120, 40, 70, 0.35),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+      .prev-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        gap: 3px;
+        width: 100%;
+        height: 100%;
+      }
+      .phc {
+        border-radius: 5px;
+        background: #e892ad;
+        box-shadow: inset 0 2px 4px rgba(120, 40, 70, 0.35);
+      }
+      .phc.f {
+        border-radius: 6px;
+        border: 1.5px solid rgba(0, 0, 0, 0.25);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.28),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+      }
+
+      /* Home CTA */
+      .home-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-shrink: 0;
+        padding: 0 clamp(16px, 5vw, 28px) clamp(12px, 3vw, 22px);
+        width: 100%;
+      }
+      .home-btns .btn {
+        width: 100%;
+      }
+      .play-btn > .f {
+        padding: clamp(13px, 3.5vw, 17px) 28px;
+        font-size: clamp(0.95rem, 4vw, 1.2rem);
+      }
+      .lb-btn {
+        background: rgba(180, 60, 100, 0.3);
+      }
+      .lb-btn > .f {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        font-family: "Jaro", sans-serif;
+        font-weight: 900;
+        font-size: clamp(0.82rem, 3.5vw, 1rem);
+        letter-spacing: 0.3px;
+        padding: clamp(11px, 3vw, 14px) 28px;
+      }
+
+      /* ═══════════════════════════════════
+   ② GAME
+═══════════════════════════════════ */
+      #sc-game {
+        padding: 0;
+        justify-content: flex-start;
+      }
+
+      .game-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: clamp(8px, 2.5vw, 12px) clamp(10px, 3vw, 14px)
+          clamp(4px, 1.5vw, 8px);
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .sc-pills {
+        display: flex;
+        gap: 7px;
+      }
+      .sc-pill {
+        background: rgba(255, 255, 255, 0.88);
+        border-radius: 12px;
+        padding: clamp(3px, 1vw, 5px) clamp(10px, 3vw, 13px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow:
+          0 3px 0 rgba(0, 0, 0, 0.18),
+          0 4px 10px rgba(0, 0, 0, 0.12);
+        min-width: clamp(60px, 16vw, 76px);
+      }
+      .sc-pill .lbl {
+        font-size: 0.52rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        color: #9aaac0;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .sc-pill .val {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(1.1rem, 5vw, 1.35rem);
+        line-height: 1.1;
+        filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
+      }
+
+      /* Portrait above board */
+      .game-portrait {
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: clamp(-26px, -5vw, -14px);
+        pointer-events: none;
+        flex-shrink: 0;
+        filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+      }
+      .game-portrait img {
+        height: clamp(100px, 18vh, 165px);
+        width: auto;
+        max-width: 92%;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* Board */
+      .board-shell {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 clamp(4px, 1.5vw, 8px) clamp(2px, 1vw, 6px);
+        width: calc(100% - clamp(8px, 3vw, 16px));
+        container-type: size;
+      }
+      .board-box {
+        position: relative;
+        width: min(100cqw, 100cqh);
+        height: min(100cqw, 100cqh);
+        aspect-ratio: 1 / 1;
+      }
+      .board-slab {
+        position: absolute;
+        left: 7px;
+        right: -7px;
+        top: 7px;
+        bottom: -7px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #8a3855, #5a2540);
+        pointer-events: none;
+      }
+      .board-face {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(160deg, #ec80a8, #d96b96);
+        border-radius: 17px;
+        padding: clamp(5px, 1.5vw, 8px);
+        box-shadow:
+          inset 0 2px 10px rgba(100, 30, 60, 0.45),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+      }
+      #board {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        gap: clamp(2px, 0.8vw, 4px);
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .cell {
+        border-radius: clamp(4px, 1.2vw, 7px);
+        background: #ffe6ee;
+        box-shadow: inset 0 2px 5px rgba(150, 60, 90, 0.32);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.07s;
+      }
+      .cell.filled {
+        border-radius: clamp(5px, 1.4vw, 8px);
+        border: 1.5px solid rgba(0, 0, 0, 0.22);
+      }
+      .cell.filled::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 42%;
+        border-radius: inherit;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.3) 0%,
+          transparent 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+      .cell.filled::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        right: 4px;
+        height: 4px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.35);
+        pointer-events: none;
+        z-index: 2;
+      }
+      /* block colors */
+      .c1 {
+        background: #f44a4a;
+        box-shadow: inset 0 -4px 0 #b80000;
+      }
+      .c2 {
+        background: #4a90e2;
+        box-shadow: inset 0 -4px 0 #1a5cb0;
+      }
+      .c3 {
+        background: #3dc8f5;
+        box-shadow: inset 0 -4px 0 #1a80bb;
+      }
+      .c4 {
+        background: #b860f5;
+        box-shadow: inset 0 -4px 0 #7020bb;
+      }
+      .c5 {
+        background: #ff9f30;
+        box-shadow: inset 0 -4px 0 #bb6000;
+      }
+      .c6 {
+        background: #ffe030;
+        box-shadow: inset 0 -4px 0 #aa8800;
+      }
+      .c7 {
+        background: #f560aa;
+        box-shadow: inset 0 -4px 0 #aa1870;
+      }
+      .c8 {
+        background: #30d8c8;
+        box-shadow: inset 0 -4px 0 #10988a;
+      }
+      /* ghost */
+      .cell.ghost {
+        opacity: 0.5;
+        border-radius: clamp(5px, 1.4vw, 8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+      }
+      .cell.ghost::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 42%;
+        border-radius: inherit;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          transparent 100%
+        );
+        z-index: 1;
+      }
+      .cell.ghost::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        right: 4px;
+        height: 4px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.28);
+        z-index: 2;
+      }
+      .cell.inv {
+        background: #f44a4a !important;
+        box-shadow: inset 0 -4px 0 #b80000 !important;
+        opacity: 0.35 !important;
+      }
+
+      /* Tray */
+      .tray-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(6px, 2vw, 10px) 12px clamp(8px, 2.5vw, 16px);
+        flex-shrink: 0;
+        width: 100%;
+      }
+      .tray-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 clamp(14px, 4vw, 22px);
+        margin-bottom: clamp(6px, 2vw, 10px);
+        gap: 10px;
+      }
+      .tray-hint {
+        font-size: 0.65rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        flex: 1;
+      }
+      .skill-btn {
+        position: relative;
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        padding: 0;
+        overflow: visible;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 4px 0 rgba(0, 0, 0, 0.25),
+          0 6px 14px rgba(0, 0, 0, 0.22);
+        transition:
+          transform 0.12s,
+          box-shadow 0.15s,
+          border-color 0.15s;
+        flex-shrink: 0;
+      }
+      .skill-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+      .skill-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+        filter: grayscale(0.8);
+      }
+      .skill-btn:not(:disabled):hover {
+        transform: translateY(-2px);
+      }
+      .skill-btn:not(:disabled):active {
+        transform: translateY(1px);
+        box-shadow:
+          0 1px 0 rgba(0, 0, 0, 0.25),
+          0 3px 8px rgba(0, 0, 0, 0.22);
+      }
+      .skill-btn.active {
+        border-color: #ffe030;
+        animation: skillActivePulse 0.9s ease-in-out infinite alternate;
+      }
+      @keyframes skillActivePulse {
+        from {
+          box-shadow:
+            0 0 0 3px rgba(255, 224, 48, 0.4),
+            0 0 16px rgba(255, 224, 48, 0.55);
+        }
+        to {
+          box-shadow:
+            0 0 0 4px rgba(255, 224, 48, 0.75),
+            0 0 24px rgba(255, 224, 48, 0.95);
+        }
+      }
+      .skill-count {
+        position: absolute;
+        bottom: -7px;
+        right: -7px;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 11px;
+        background: #f44a4a;
+        color: #fff;
+        font-family: "Jaro", sans-serif;
+        font-size: 0.85rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        border: 2px solid #142050;
+      }
+      .skill-btn:disabled .skill-count {
+        background: #888;
+      }
+
+      /* Skill drag ghost — floats with cursor/finger */
+      .skill-ghost {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        width: 56px;
+        height: 56px;
+        border-radius: 13px;
+        overflow: hidden;
+        transform: translate(-50%, -50%);
+        box-shadow:
+          0 0 0 3px rgba(255, 224, 48, 0.8),
+          0 0 26px rgba(255, 224, 48, 0.95);
+        opacity: 0.95;
+      }
+      .skill-ghost img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* 3x3 preview on board during skill drag */
+      .cell.skill-preview {
+        outline: 3px solid #ffe030;
+        outline-offset: -3px;
+        z-index: 5;
+        animation: skillPrevPulse 0.6s ease-in-out infinite alternate;
+      }
+      .cell.filled.skill-preview {
+        filter: brightness(1.25) saturate(1.1);
+      }
+      .cell:not(.filled).skill-preview {
+        background: rgba(255, 224, 48, 0.25);
+      }
+      @keyframes skillPrevPulse {
+        from {
+          box-shadow: 0 0 12px rgba(255, 224, 48, 0.5);
+        }
+        to {
+          box-shadow: 0 0 22px rgba(255, 224, 48, 1);
+        }
+      }
+      .tray {
+        display: flex;
+        gap: clamp(8px, 3vw, 14px);
+        align-items: center;
+        justify-content: center;
+      }
+      .pslot {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+        padding: clamp(8px, 2.5vw, 12px);
+        min-width: clamp(68px, 20vw, 82px);
+        min-height: clamp(68px, 20vw, 82px);
+      }
+      .pslot.used {
+        opacity: 0.15;
+        pointer-events: none;
+      }
+      .pslot.lifted {
+        transform: scale(1.06) translateY(-3px);
+      }
+      .pmini {
+        display: grid;
+        gap: clamp(2px, 0.7vw, 3px);
+        pointer-events: none;
+      }
+      .pmc {
+        border-radius: 4px;
+        width: 100%;
+        height: 100%;
+      }
+      .pmc.e {
+        background: transparent;
+      }
+      /* mini colors = same as cells */
+      .pmc.c1 {
+        background: #f44a4a;
+      }
+      .pmc.c2 {
+        background: #4a90e2;
+      }
+      .pmc.c3 {
+        background: #3dc8f5;
+      }
+      .pmc.c4 {
+        background: #b860f5;
+      }
+      .pmc.c5 {
+        background: #ff9f30;
+      }
+      .pmc.c6 {
+        background: #ffe030;
+      }
+      .pmc.c7 {
+        background: #f560aa;
+      }
+      .pmc.c8 {
+        background: #30d8c8;
+      }
+
+      /* drag ghost */
+      #dg {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        display: none;
+        opacity: 0.88;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+      }
+      #dg .pmini .pmc {
+        border-radius: 5px;
+      }
+
+      /* ═══════════════════════════════════
+   OVERLAY / MODAL
+═══════════════════════════════════ */
+      .ov {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        padding: 20px;
+      }
+      .ov.show {
+        opacity: 1;
+      }
+      .ov.show .modal {
+        pointer-events: all;
+      }
+      /* Intro gate variants — dim backdrop + block interaction */
+      .ov.ov-gate {
+        background: rgba(120, 40, 70, 0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .ov.ov-gate.show {
+        pointer-events: all;
+      }
+      .modal-msg {
+        font-family: var(--ui-font);
+        font-size: 0.95rem;
+        text-align: center;
+        color: #3a4560;
+        line-height: 1.5;
+        margin: 2px 4px 10px;
+      }
+      .modal {
+        --ui-font:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: #f4f6ff;
+        border-radius: 22px;
+        padding: 0 22px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        max-width: 300px;
+        box-shadow:
+          0 8px 0 rgba(0, 0, 0, 0.2),
+          0 14px 32px rgba(0, 0, 0, 0.32);
+      }
+      .modal-stripe {
+        width: 100%;
+        height: 6px;
+        border-radius: 22px 22px 0 0;
+        flex-shrink: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          #f44a4a 0 20%,
+          #ff9f30 20% 40%,
+          #ffe030 40% 60%,
+          #4a90e2 60% 80%,
+          #3dc8f5 80% 100%
+        );
+        margin-bottom: 14px;
+      }
+      .modal-icon {
+        font-size: 2.4rem;
+        line-height: 1;
+      }
+      .modal-title {
+        font-family: "Jaro", sans-serif;
+        font-size: 1.7rem;
+        text-align: center;
+        color: #1c2440;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+      }
+      .modal-lbl {
+        font-family: var(--ui-font);
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: #9aaac0;
+        margin-top: 4px;
+      }
+      .modal-pts {
+        font-family: "Jaro", sans-serif;
+        font-size: 2.8rem;
+        line-height: 1;
+        color: #1c2440;
+        margin-bottom: 6px;
+      }
+      .modal-record {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(160deg, #ffe84a, #ffd000);
+        border-radius: 50px;
+        padding: 6px 16px;
+        font-family: var(--ui-font);
+        font-weight: 800;
+        font-size: 0.88rem;
+        color: #664400;
+        box-shadow: 0 3px 0 rgba(180, 130, 0, 0.35);
+        margin-bottom: 14px;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .modal-record.new {
+        background: linear-gradient(160deg, #4ee472, #22b845);
+        color: #fff;
+        box-shadow: 0 3px 0 rgba(0, 90, 30, 0.35);
+        animation: recordPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .modal-record .rec-icon {
+        font-size: 1.05rem;
+        line-height: 1;
+      }
+      @keyframes recordPop {
+        0% {
+          transform: scale(0.7) rotate(-6deg);
+        }
+        60% {
+          transform: scale(1.08) rotate(2deg);
+        }
+        100% {
+          transform: scale(1) rotate(0);
+        }
+      }
+      .modal-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .modal-btns .btn {
+        width: 100%;
+      }
+      .modal-btns .btn > .f {
+        padding: 12px 20px;
+        font-family: var(--ui-font);
+        font-weight: 800;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+      }
+      .modal-row {
+        display: flex;
+        gap: 8px;
+      }
+      .modal-row .btn {
+        flex: 1;
+      }
+      .modal-row .btn > .f {
+        padding: 11px 8px;
+        font-size: 0.88rem;
+      }
+
+      /* ═══════════════════════════════════
+   ANIMATIONS (GSAP handles placement/clearing/combo/pop — keep only CSS-only ones)
+═══════════════════════════════════ */
+
+      /* Predictive clear pulse — cells that will clear glow */
+      .cell.will-clear {
+        animation: willClearPulse 0.55s ease-in-out infinite alternate;
+        z-index: 3;
+      }
+      @keyframes willClearPulse {
+        from {
+          transform: scale(1);
+          filter: brightness(1);
+        }
+        to {
+          transform: scale(1.07);
+          filter: brightness(1.45) saturate(1.1)
+            drop-shadow(0 0 7px rgba(255, 240, 140, 0.9));
+        }
+      }
+
+      /* Shake tray slot on invalid drop */
+      @keyframes slotShake {
+        0%,
+        100% {
+          transform: translateX(0) rotate(0);
+        }
+        15%,
+        75% {
+          transform: translateX(-7px) rotate(-2deg);
+        }
+        30%,
+        60% {
+          transform: translateX(7px) rotate(2deg);
+        }
+        45% {
+          transform: translateX(-4px) rotate(-1deg);
+        }
+      }
+      .pslot.shake {
+        animation: slotShake 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+      }
+
+      /* Board flash on line clear */
+      .board-face.flash {
+        animation: boardFlash 0.45s ease-out;
+      }
+      @keyframes boardFlash {
+        0%,
+        100% {
+          box-shadow:
+            inset 0 2px 10px rgba(100, 30, 60, 0.45),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+        }
+        30% {
+          box-shadow:
+            inset 0 2px 10px rgba(0, 0, 0, 0.5),
+            inset 0 0 0 2px rgba(255, 240, 120, 0.9),
+            0 0 26px rgba(255, 200, 60, 0.45);
+        }
+      }
+
+      /* ═══ Explosion effects ═══ */
+      /* Lightning sweep across cleared row/column */
+      .sweep {
+        position: absolute;
+        pointer-events: none;
+        z-index: 5;
+        filter: blur(2.5px);
+        mix-blend-mode: screen;
+      }
+      .sweep.h {
+        height: 12.5%;
+        width: 45%;
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.4) 30%,
+          #ffffff 50%,
+          rgba(255, 240, 120, 0.95) 55%,
+          rgba(255, 255, 255, 0.4) 70%,
+          transparent 100%
+        );
+      }
+      .sweep.v {
+        width: 12.5%;
+        height: 45%;
+        top: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.4) 30%,
+          #ffffff 50%,
+          rgba(255, 240, 120, 0.95) 55%,
+          rgba(255, 255, 255, 0.4) 70%,
+          transparent 100%
+        );
+      }
+
+      /* Particle shards from each exploded cell */
+      .shard {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 2px;
+        margin-left: -3.5px;
+        margin-top: -3.5px;
+        pointer-events: none;
+        z-index: 6;
+        box-shadow:
+          0 0 6px rgba(255, 255, 255, 0.4),
+          0 0 12px rgba(255, 200, 60, 0.25);
+      }
+
+      /* Radial shockwave ring */
+      .shockwave {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        margin-left: -9px;
+        margin-top: -9px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 240, 140, 0.95);
+        box-shadow:
+          0 0 22px rgba(255, 220, 80, 0.85),
+          inset 0 0 12px rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      .heart-burst {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        line-height: 1;
+        pointer-events: none;
+        z-index: 60;
+        filter: drop-shadow(0 3px 6px rgba(255, 80, 130, 0.55));
+        will-change: transform, opacity;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════════ LOADING ══════════════ -->
+    <div id="sc-loading" class="loading-screen">
+      <div class="loading-logo">Thu<br />Phuong</div>
+      <div class="loading-blocks">
+        <div class="lb lb1"></div>
+        <div class="lb lb2"></div>
+        <div class="lb lb3"></div>
+        <div class="lb lb4"></div>
+        <div class="lb lb5"></div>
+      </div>
+      <div class="loading-text">Đang tải...</div>
+    </div>
+
+    <div id="app">
+      <!-- ══════════════ HOME ══════════════ -->
+      <div id="sc-home" class="screen active">
+        <div class="home-top">
+          <button
+            class="ibtn warn"
+            onclick="showScreen('home')"
+            style="display: none"
+          ></button>
+        </div>
+        <div class="home-logo">Thu<br />Phuong</div>
+        <div class="home-tagline">
+          <span class="tg-heart">♥</span>
+          Game dành riêng cho Thu Phương
+          <span class="tg-heart">♥</span>
+        </div>
+
+        <div class="home-deco">
+          <span class="deco-blk d1"></span>
+          <span class="deco-blk d2"></span>
+          <span class="deco-blk d3"></span>
+          <span class="deco-blk d4"></span>
+          <span class="deco-blk d5"></span>
+          <span class="deco-blk d6"></span>
+          <span class="deco-spark s1">✦</span>
+          <span class="deco-spark s2">✧</span>
+          <span class="deco-spark s3">✦</span>
+        </div>
+
+        <div class="home-spacer"></div>
+
+        <div class="home-btns">
+          <button class="btn g play-btn" onclick="startGame()">
+            <span class="f">▶&nbsp; CHƠI NGAY</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══════════════ GAME ══════════════ -->
+      <div id="sc-game" class="screen hidden">
+        <div class="game-bar">
+          <button class="ibtn warn" id="btn-pause" onclick="pauseGame()">
+            ⏸
+          </button>
+          <div class="sc-pills">
+            <div class="sc-pill">
+              <div class="lbl">SCORE</div>
+              <div class="val" id="sc-score">0</div>
+            </div>
+            <div class="sc-pill">
+              <div class="lbl">BEST</div>
+              <div class="val" id="sc-best">0</div>
+            </div>
+          </div>
+          <button class="ibtn danger" onclick="goHome()">✕</button>
+        </div>
+
+        <div class="game-portrait">
+          <img src="assets/images/board-bg.png" alt="" />
+        </div>
+
+        <div class="board-shell" id="board-shell">
+          <div class="board-box">
+            <div class="board-slab"></div>
+            <div class="board-face" id="board-face">
+              <div id="board"></div>
+            </div>
+          </div>
+
+          <!-- Pause -->
+          <div class="ov" id="ov-pause">
+            <div class="modal">
+              <div class="modal-stripe"></div>
+              <div class="modal-icon">⏸</div>
+              <div class="modal-title">Tạm dừng</div>
+              <div class="modal-btns">
+                <button class="btn g" onclick="resume()">
+                  <span class="f">Tiếp tục</span>
+                </button>
+                <div class="modal-row">
+                  <button class="btn o" onclick="restart()">
+                    <span class="f">Chơi lại</span>
+                  </button>
+                  <button class="btn w" onclick="goHome()">
+                    <span class="f">Thoát</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game Over -->
+          <div class="ov" id="ov-gameover">
+            <div class="modal">
+              <div class="modal-stripe"></div>
+              <div class="modal-icon">😵</div>
+              <div class="modal-title">Game Over!</div>
+              <div class="modal-lbl">Điểm của bạn</div>
+              <div class="modal-pts" id="go-pts">0</div>
+              <div class="modal-record" id="go-record">
+                <span class="rec-icon">👑</span>
+                <span class="rec-text" id="go-best">Kỷ lục: 0</span>
+              </div>
+              <div class="modal-btns">
+                <button class="btn o" onclick="restart()">
+                  <span class="f">Chơi lại</span>
+                </button>
+                <button class="btn w" onclick="goHome()">
+                  <span class="f">Menu</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tray-area">
+          <div class="tray-top">
+            <div class="tray-hint">Kéo khối vào bảng</div>
+            <button class="skill-btn" id="skill-btn" disabled>
+              <img src="assets/images/skill.jpeg" alt="Skill" />
+              <span class="skill-count" id="skill-count">0</span>
+            </button>
+          </div>
+          <div class="tray" id="tray"></div>
+        </div>
+      </div>
+
+      <!-- drag ghost -->
+      <div id="dg"><div class="pmini" id="dg-inner"></div></div>
+
+      <!-- skill drag ghost -->
+      <div id="skill-dg" class="skill-ghost" style="display: none">
+        <img src="assets/images/skill.jpeg" alt="" />
+      </div>
+
+      <!-- ══════════════ INTRO GATE ══════════════ -->
+      <div class="ov ov-gate" id="ov-intro">
+        <div class="modal">
+          <div class="modal-stripe"></div>
+          <div class="modal-icon">🌸</div>
+          <div class="modal-title">Bạn có phải<br />Thu Phương không?</div>
+          <div class="modal-btns">
+            <button class="btn g" onclick="introYes()">
+              <span class="f">Vanggg</span>
+            </button>
+            <button class="btn w" onclick="introNo()">
+              <span class="f">Không</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════ REJECTION ══════════════ -->
+      <div class="ov ov-gate" id="ov-reject">
+        <div class="modal">
+          <div class="modal-stripe"></div>
+          <div class="modal-icon">🥺</div>
+          <div class="modal-title">Ui, xin lỗi!</div>
+          <div class="modal-msg">
+            Game này chỉ dành cho mình Phương thui,<br />
+            không dành cho bạn đâu 💔
+          </div>
+          <div class="modal-btns">
+            <button class="btn o" onclick="introBack()">
+              <span class="f">Quay lại</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #app -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script>
+      /* ══ SFX ══ */
+      const SFX = {};
+      (function loadSfx() {
+        const a = new Audio("assets/sounds/drop.mp3");
+        a.preload = "auto";
+        a.volume = 0.6;
+        SFX.drop = a;
+      })();
+      function playSfx(name) {
+        const src = SFX[name];
+        if (!src) return;
+        try {
+          const s = src.cloneNode();
+          s.volume = src.volume;
+          s.play().catch(() => {});
+        } catch (e) {}
+      }
+      // Play drop sfx on any button click (event delegation)
+      document.addEventListener(
+        "click",
+        (e) => {
+          if (e.target.closest("button")) playSfx("drop");
+        },
+        true,
+      );
+
+      /* ══ ROUTER ══ */
+      function showScreen(id) {
+        document.querySelectorAll(".screen").forEach((s) => {
+          s.classList.remove("active");
+          s.classList.add("hidden");
+        });
+        const el = document.getElementById("sc-" + id);
+        el.classList.remove("hidden");
+        requestAnimationFrame(() => el.classList.add("active"));
+        if (id === "home") {
+          buildPreview();
+          updateHomeBest();
+        }
+      }
+      function goHome() {
+        closeOvs();
+        showScreen("home");
+      }
+
+      /* ══ INTRO GATE ══ */
+      function introYes() {
+        document.getElementById("ov-intro").classList.remove("show");
+      }
+      function introNo() {
+        document.getElementById("ov-intro").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("ov-reject").classList.add("show");
+        }, 280);
+      }
+      function introBack() {
+        document.getElementById("ov-reject").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("ov-intro").classList.add("show");
+        }, 280);
+      }
+
+      /* ══ HOME PREVIEW ══ */
+      const PV = [
+        [0, 0, 3, 3, 0, 0, 0, 0],
+        [0, 0, 3, 0, 2, 0, 0, 0],
+        [0, 4, 3, 2, 2, 0, 0, 0],
+        [4, 4, 5, 2, 6, 6, 0, 0],
+        [4, 1, 5, 5, 6, 7, 7, 0],
+        [1, 1, 1, 5, 6, 7, 8, 8],
+        [1, 3, 4, 6, 6, 7, 8, 2],
+        [3, 3, 4, 4, 6, 5, 8, 2],
+      ];
+      const CLR = [
+        "",
+        "#F44A4A",
+        "#3DD865",
+        "#3DC8F5",
+        "#B860F5",
+        "#FF9F30",
+        "#FFE030",
+        "#F560AA",
+        "#30D8C8",
+      ];
+      const BOT = [
+        "",
+        "#B80000",
+        "#1A9A40",
+        "#1A80BB",
+        "#7020BB",
+        "#BB6000",
+        "#AA8800",
+        "#AA1870",
+        "#10988A",
+      ];
+
+      function buildPreview() {
+        const el = document.getElementById("prev-grid");
+        if (!el) return;
+        el.innerHTML = "";
+        PV.forEach((row) =>
+          row.forEach((v) => {
+            const c = document.createElement("div");
+            c.className = "phc" + (v ? " f" : "");
+            if (v)
+              c.style.cssText = `background:${CLR[v]};box-shadow:inset 0 3px 0 rgba(255,255,255,.28),inset 0 -4px 0 ${BOT[v]};border:1.5px solid rgba(0,0,0,.22)`;
+            el.appendChild(c);
+          }),
+        );
+      }
+      function updateHomeBest() {}
+
+      /* ══ GAME ENGINE ══ */
+      const R = 8,
+        C = 8;
+      const CLRS = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"];
+      const SH = [
+        [[1]],
+        [[1, 1]],
+        [[1], [1]],
+        [[1, 1, 1]],
+        [[1], [1], [1]],
+        [[1, 1, 1, 1]],
+        [[1], [1], [1], [1]],
+        [
+          [1, 1],
+          [1, 1],
+        ],
+        [
+          [1, 1, 1],
+          [1, 1, 1],
+        ],
+        [
+          [1, 1],
+          [1, 1],
+          [1, 1],
+        ],
+        [
+          [1, 1, 1],
+          [1, 1, 1],
+          [1, 1, 1],
+        ],
+        [
+          [1, 0],
+          [1, 0],
+          [1, 1],
+        ],
+        [
+          [0, 1],
+          [0, 1],
+          [1, 1],
+        ],
+        [
+          [1, 1],
+          [1, 0],
+          [1, 0],
+        ],
+        [
+          [1, 1],
+          [0, 1],
+          [0, 1],
+        ],
+        [
+          [0, 1, 0],
+          [1, 1, 1],
+        ],
+        [
+          [1, 1, 1],
+          [0, 1, 0],
+        ],
+        [
+          [1, 0],
+          [1, 1],
+          [0, 1],
+        ],
+        [
+          [0, 1],
+          [1, 1],
+          [1, 0],
+        ],
+        [
+          [1, 0],
+          [1, 1],
+          [1, 0],
+        ],
+        [
+          [0, 1],
+          [1, 1],
+          [0, 1],
+        ],
+      ];
+
+      let brd, pts, best, tray, alive, paused;
+      let skills = 0,
+        skillDrag = false,
+        skillTid = null,
+        skillAnchor = { r: -99, c: -99 },
+        skillPrev = [];
+      let di = -1,
+        ghosts = [],
+        anch = { r: -99, c: -99 },
+        dragging = false,
+        tid = null;
+      let CSZ = 40; // cell size px — computed after layout
+
+      function startGame() {
+        showScreen("game");
+        setTimeout(initGame, 60);
+      }
+      function initGame() {
+        brd = Array.from({ length: R }, () => Array(C).fill(null));
+        pts = 0;
+        alive = true;
+        paused = false;
+        skills = 0;
+        skillDrag = false;
+        best = parseInt(localStorage.getItem("bb_best") || "0");
+        document.getElementById("sc-score").textContent = "0";
+        document.getElementById("sc-best").textContent =
+          best.toLocaleString("vi-VN");
+        updateSkillUI();
+        closeOvs();
+        buildBoard();
+        newTray();
+      }
+      function restart() {
+        closeOvs();
+        initGame();
+      }
+      function pauseGame() {
+        if (!alive) return;
+        paused = true;
+        document.getElementById("ov-pause").classList.add("show");
+      }
+      function resume() {
+        paused = false;
+        document.getElementById("ov-pause").classList.remove("show");
+      }
+      function closeOvs() {
+        document
+          .querySelectorAll(".ov")
+          .forEach((o) => o.classList.remove("show"));
+      }
+
+      /* Board DOM */
+      function buildBoard() {
+        const el = document.getElementById("board");
+        el.innerHTML = "";
+        el.style.gridTemplateColumns = "repeat(8,1fr)";
+        el.style.gridTemplateRows = "repeat(8,1fr)";
+        for (let r = 0; r < R; r++)
+          for (let c = 0; c < C; c++) {
+            const d = document.createElement("div");
+            d.className = "cell";
+            d.id = `b${r}_${c}`;
+            el.appendChild(d);
+          }
+        setTimeout(() => {
+          const f = document.getElementById("b0_0");
+          if (f) CSZ = f.offsetWidth || 40;
+        }, 100);
+      }
+      const GC = (r, c) => document.getElementById(`b${r}_${c}`);
+      function renderBoard() {
+        for (let r = 0; r < R; r++)
+          for (let c = 0; c < C; c++) {
+            const el = GC(r, c),
+              v = brd[r][c];
+            el.className = "cell" + (v ? ` filled ${v}` : "");
+          }
+      }
+
+      /* Tray */
+      function newTray() {
+        tray = [mkP(), mkP(), mkP()];
+        renderTray();
+      }
+      function mkP() {
+        return {
+          shape: SH[Math.floor(Math.random() * SH.length)],
+          color: CLRS[Math.floor(Math.random() * CLRS.length)],
+          used: false,
+        };
+      }
+      function renderTray() {
+        const el = document.getElementById("tray");
+        el.innerHTML = "";
+        const msz = Math.max(14, Math.min(20, Math.floor(CSZ * 0.5)));
+        tray.forEach((p, i) => {
+          const slot = document.createElement("div");
+          slot.className = "pslot" + (p.used ? " used" : "");
+          slot.id = `ps${i}`;
+          slot.appendChild(mkMini(p, msz));
+          if (!p.used) {
+            slot.addEventListener("mousedown", (e) => dragStart(e, i, false));
+            slot.addEventListener("touchstart", (e) => dragStart(e, i, true), {
+              passive: false,
+            });
+          }
+          el.appendChild(slot);
+        });
+      }
+      function mkMini(p, sz) {
+        const g = document.createElement("div");
+        g.className = "pmini";
+        g.style.gridTemplateColumns = `repeat(${p.shape[0].length},${sz}px)`;
+        g.style.gridTemplateRows = `repeat(${p.shape.length},${sz}px)`;
+        g.style.gap = "2px";
+        p.shape.forEach((row) =>
+          row.forEach((v) => {
+            const c = document.createElement("div");
+            c.className = "pmc " + (v ? p.color : "e");
+            c.style.cssText = `width:${sz}px;height:${sz}px`;
+            g.appendChild(c);
+          }),
+        );
+        return g;
+      }
+
+      /* ── DRAG ── */
+      function dragStart(e, idx, isTouch) {
+        if (!alive || paused || skillDrag) return;
+        e.preventDefault();
+        di = idx;
+        dragging = true;
+        const p = tray[idx];
+        // build ghost
+        const inner = document.getElementById("dg-inner");
+        inner.innerHTML = "";
+        const gsz = Math.max(24, Math.min(34, Math.floor(CSZ * 0.82)));
+        inner.appendChild(mkMini({ shape: p.shape, color: p.color }, gsz));
+        document.getElementById("dg").style.display = "block";
+        document.getElementById(`ps${idx}`).classList.add("lifted");
+
+        const cx = isTouch ? e.touches[0].clientX : e.clientX;
+        const cy = isTouch ? e.touches[0].clientY : e.clientY;
+        moveGhost(cx, cy, p);
+        showGhost(cx, cy, p);
+
+        if (isTouch) {
+          tid = e.touches[0].identifier;
+          document.addEventListener("touchmove", onTM, { passive: false });
+          document.addEventListener("touchend", onTE, { passive: false });
+        } else {
+          document.addEventListener("mousemove", onMM);
+          document.addEventListener("mouseup", onMU);
+        }
+      }
+      function onMM(e) {
+        if (!dragging) return;
+        const p = tray[di];
+        moveGhost(e.clientX, e.clientY, p);
+        showGhost(e.clientX, e.clientY, p);
+      }
+      function onMU(e) {
+        drop(e.clientX, e.clientY);
+        document.removeEventListener("mousemove", onMM);
+        document.removeEventListener("mouseup", onMU);
+      }
+      function onTM(e) {
+        e.preventDefault();
+        const t = [...e.touches].find((t) => t.identifier === tid);
+        if (t) {
+          const p = tray[di];
+          moveGhost(t.clientX, t.clientY, p);
+          showGhost(t.clientX, t.clientY, p);
+        }
+      }
+      function onTE(e) {
+        const t = [...e.changedTouches].find((t) => t.identifier === tid);
+        if (t) drop(t.clientX, t.clientY);
+        document.removeEventListener("touchmove", onTM);
+        document.removeEventListener("touchend", onTE);
+        tid = null;
+      }
+
+      function moveGhost(cx, cy, p) {
+        const g = document.getElementById("dg");
+        const gsz = Math.max(24, Math.min(34, Math.floor(CSZ * 0.82)));
+        const gap = 2,
+          gw = p.shape[0].length * (gsz + gap),
+          gh = p.shape.length * (gsz + gap);
+        g.style.left = cx - gw / 2 + "px";
+        g.style.top = cy - gh / 2 - 52 + "px";
+      }
+      function bPos(cx, cy) {
+        const el = document.getElementById("board"),
+          rect = el.getBoundingClientRect();
+        return {
+          r: Math.floor((cy - rect.top) / (rect.height / R)),
+          c: Math.floor((cx - rect.left) / (rect.width / C)),
+        };
+      }
+      function showGhost(cx, cy, piece) {
+        clearGhosts();
+        const { r, c } = bPos(cx, cy);
+        let ar = r - Math.floor(piece.shape.length / 2),
+          ac = c - Math.floor(piece.shape[0].length / 2);
+        // Smart snap: if finger is near the board, clamp anchor so piece fits
+        const nearBoard = r >= -1 && r <= R && c >= -1 && c <= C;
+        if (nearBoard) {
+          ar = Math.max(0, Math.min(R - piece.shape.length, ar));
+          ac = Math.max(0, Math.min(C - piece.shape[0].length, ac));
+        }
+        const ok = canPlace(piece.shape, ar, ac);
+        // Predict which cells will clear if placed here
+        const willSet = ok ? getClearSet(piece.shape, ar, ac) : null;
+        piece.shape.forEach((row, dr) =>
+          row.forEach((v, dc) => {
+            if (!v) return;
+            const nr = ar + dr,
+              nc = ac + dc;
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C) return;
+            const el = GC(nr, nc);
+            if (!el) return;
+            if (!brd[nr][nc]) {
+              el.classList.add("ghost", piece.color);
+              if (!ok) el.classList.add("inv");
+              if (willSet && willSet.has(`${nr},${nc}`))
+                el.classList.add("will-clear");
+            }
+            ghosts.push({ r: nr, c: nc });
+          }),
+        );
+        // Highlight already-filled cells that are part of a line about to clear
+        if (willSet) {
+          willSet.forEach((k) => {
+            const [rr, cc] = k.split(",").map(Number);
+            if (brd[rr][cc]) {
+              const el = GC(rr, cc);
+              if (el) {
+                el.classList.add("will-clear");
+                ghosts.push({ r: rr, c: cc });
+              }
+            }
+          });
+        }
+        anch = { r: ar, c: ac };
+      }
+      function getClearSet(shape, sr, sc) {
+        const sim = brd.map((row) => row.slice());
+        shape.forEach((row, dr) =>
+          row.forEach((v, dc) => {
+            if (v) sim[sr + dr][sc + dc] = "x";
+          }),
+        );
+        const set = new Set();
+        for (let r = 0; r < R; r++)
+          if (sim[r].every((v) => v))
+            for (let c = 0; c < C; c++) set.add(`${r},${c}`);
+        for (let c = 0; c < C; c++)
+          if (sim.every((row) => row[c]))
+            for (let r = 0; r < R; r++) set.add(`${r},${c}`);
+        return set;
+      }
+      function haptic(d) {
+        if (navigator.vibrate) {
+          try {
+            navigator.vibrate(d);
+          } catch (e) {}
+        }
+      }
+      function clearGhosts() {
+        ghosts.forEach(({ r, c }) => {
+          const el = GC(r, c);
+          if (!el) return;
+          el.className = "cell" + (brd[r][c] ? ` filled ${brd[r][c]}` : "");
+        });
+        ghosts = [];
+      }
+      function canPlace(shape, sr, sc) {
+        for (let dr = 0; dr < shape.length; dr++)
+          for (let dc = 0; dc < shape[0].length; dc++) {
+            if (!shape[dr][dc]) continue;
+            const r = sr + dr,
+              c = sc + dc;
+            if (r < 0 || r >= R || c < 0 || c >= C || brd[r][c]) return false;
+          }
+        return true;
+      }
+      function drop(cx, cy) {
+        dragging = false;
+        clearGhosts();
+        document.getElementById("dg").style.display = "none";
+        const slot = document.getElementById(`ps${di}`);
+        if (slot) slot.classList.remove("lifted");
+        if (di < 0) return;
+        const p = tray[di];
+        if (!canPlace(p.shape, anch.r, anch.c)) {
+          // Invalid drop — shake tray slot + short haptic
+          if (slot) {
+            slot.classList.remove("shake");
+            void slot.offsetWidth; // restart animation
+            slot.classList.add("shake");
+            setTimeout(() => slot.classList.remove("shake"), 400);
+          }
+          haptic(18);
+          di = -1;
+          return;
+        }
+        // Valid drop — GSAP staggered placement
+        haptic(10);
+        playSfx("drop");
+        const placedEls = [];
+        p.shape.forEach((row, dr) =>
+          row.forEach((v, dc) => {
+            if (!v) return;
+            const nr = anch.r + dr,
+              nc = anch.c + dc;
+            brd[nr][nc] = p.color;
+            const el = GC(nr, nc);
+            el.className = `cell filled ${p.color}`;
+            placedEls.push(el);
+          }),
+        );
+        gsap.fromTo(
+          placedEls,
+          { scale: 0.35, rotation: -12, opacity: 0.4 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.42,
+            ease: "back.out(2.6)",
+            stagger: { each: 0.035, from: "start" },
+            overwrite: "auto",
+            clearProps: "transform,opacity",
+          },
+        );
+        tray[di].used = true;
+        di = -1;
+        const allUsed = tray.every((t) => t.used);
+        const postDrop = () => {
+          if (allUsed) newTray();
+          else renderTray();
+          checkOver();
+        };
+        const cl = doClears(postDrop);
+        addPts(cl);
+        if (cl === 0) {
+          if (allUsed) setTimeout(postDrop, 320);
+          else postDrop();
+        }
+      }
+
+      /* Clear */
+      function doClears(onDone) {
+        const fR = [],
+          fC = [];
+        for (let r = 0; r < R; r++) if (brd[r].every((v) => v)) fR.push(r);
+        for (let c = 0; c < C; c++) if (brd.every((row) => row[c])) fC.push(c);
+        const tot = fR.length + fC.length;
+        if (!tot) return 0;
+        const fl = new Set();
+        fR.forEach((r) => {
+          for (let c = 0; c < C; c++) fl.add(`${r},${c}`);
+        });
+        fC.forEach((c) => {
+          for (let r = 0; r < R; r++) fl.add(`${r},${c}`);
+        });
+        const clearEls = [];
+        fl.forEach((k) => {
+          const [r, c] = k.split(",").map(Number);
+          const el = GC(r, c);
+          if (el) clearEls.push(el);
+        });
+
+        // Grant 1 skill per line cleared
+        skills += tot;
+        updateSkillUI();
+        const skillBtn = document.getElementById("skill-btn");
+        gsap.fromTo(
+          skillBtn,
+          { scale: 1 },
+          {
+            scale: 1.3,
+            duration: 0.16,
+            ease: "back.out(3)",
+            yoyo: true,
+            repeat: 1,
+            overwrite: "auto",
+          },
+        );
+        const face = document.getElementById("board-face");
+        const boardEl = document.getElementById("board");
+        const boardRect = boardEl.getBoundingClientRect();
+        const cellW = boardRect.width / C;
+        const cellH = boardRect.height / R;
+
+        // Flash board face
+        face.classList.remove("flash");
+        void face.offsetWidth;
+        face.classList.add("flash");
+
+        // Full-screen shake — punchy impact, stronger for multi-line clears
+        const appEl = document.getElementById("app");
+        const sX = tot >= 2 ? 12 : 7;
+        const sY = tot >= 2 ? 6 : 3;
+        gsap.killTweensOf(appEl, "x,y");
+        gsap.set(appEl, { x: 0, y: 0 });
+        gsap.to(appEl, {
+          keyframes: {
+            x: [-sX, sX, -sX * 0.66, sX * 0.66, -sX * 0.33, 0],
+            y: [-sY, sY, -sY * 0.66, sY * 0.66, -sY * 0.33, 0],
+            easeEach: "power1.inOut",
+          },
+          duration: 0.42,
+        });
+
+        // Stronger haptic for multi-line clears
+        haptic(tot >= 2 ? [25, 30, 45] : 22);
+
+        // ═══ Lightning sweeps along each cleared row/column ═══
+        fR.forEach((r) => {
+          const sw = document.createElement("div");
+          sw.className = "sweep h";
+          sw.style.top = `${r * 12.5}%`;
+          boardEl.appendChild(sw);
+          gsap.fromTo(
+            sw,
+            { left: "-45%", opacity: 0 },
+            {
+              left: "100%",
+              opacity: 1,
+              duration: 0.32,
+              ease: "power2.out",
+              onComplete: () =>
+                gsap.to(sw, {
+                  opacity: 0,
+                  duration: 0.15,
+                  onComplete: () => sw.remove(),
+                }),
+            },
+          );
+        });
+        fC.forEach((c) => {
+          const sw = document.createElement("div");
+          sw.className = "sweep v";
+          sw.style.left = `${c * 12.5}%`;
+          boardEl.appendChild(sw);
+          gsap.fromTo(
+            sw,
+            { top: "-45%", opacity: 0 },
+            {
+              top: "100%",
+              opacity: 1,
+              duration: 0.32,
+              ease: "power2.out",
+              onComplete: () =>
+                gsap.to(sw, {
+                  opacity: 0,
+                  duration: 0.15,
+                  onComplete: () => sw.remove(),
+                }),
+            },
+          );
+        });
+
+        // ═══ Shockwaves at center of each line (slight delay to align with peak) ═══
+        const spawnShock = (x, y) => {
+          const w = document.createElement("div");
+          w.className = "shockwave";
+          w.style.left = `${x}px`;
+          w.style.top = `${y}px`;
+          boardEl.appendChild(w);
+          gsap.fromTo(
+            w,
+            { scale: 0.3, opacity: 0.9 },
+            {
+              scale: 14,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power2.out",
+              onComplete: () => w.remove(),
+            },
+          );
+        };
+        gsap.delayedCall(0.1, () => {
+          fR.forEach((r) => spawnShock(boardRect.width / 2, (r + 0.5) * cellH));
+          fC.forEach((c) =>
+            spawnShock((c + 0.5) * cellW, boardRect.height / 2),
+          );
+        });
+
+        // ═══ Particle shards from each cell ═══
+        const spawnShards = (cell) => {
+          const rect = cell.getBoundingClientRect();
+          const bg = window.getComputedStyle(cell).backgroundColor;
+          const cx = rect.left - boardRect.left + rect.width / 2;
+          const cy = rect.top - boardRect.top + rect.height / 2;
+          const n = 6;
+          for (let i = 0; i < n; i++) {
+            const s = document.createElement("div");
+            s.className = "shard";
+            s.style.background = bg;
+            s.style.left = `${cx}px`;
+            s.style.top = `${cy}px`;
+            boardEl.appendChild(s);
+            const angle = (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const dist = 28 + Math.random() * 46;
+            gsap.to(s, {
+              x: Math.cos(angle) * dist,
+              y: Math.sin(angle) * dist + 22 + Math.random() * 28,
+              rotation: (Math.random() - 0.5) * 720,
+              scale: 0.15 + Math.random() * 0.45,
+              opacity: 0,
+              duration: 0.55 + Math.random() * 0.3,
+              ease: "power2.out",
+              onComplete: () => s.remove(),
+            });
+          }
+        };
+
+        // Confetti burst for 2+ combos
+        if (tot >= 2 && typeof confetti === "function") {
+          const rect = face.getBoundingClientRect();
+          confetti({
+            particleCount: 30 + tot * 28,
+            spread: 60 + tot * 10,
+            startVelocity: 30 + tot * 4,
+            origin: {
+              x: (rect.left + rect.width / 2) / window.innerWidth,
+              y: (rect.top + rect.height / 2) / window.innerHeight,
+            },
+            colors: [
+              "#f44a4a",
+              "#3dd865",
+              "#3dc8f5",
+              "#b860f5",
+              "#ff9f30",
+              "#ffe030",
+              "#f560aa",
+              "#30d8c8",
+            ],
+            scalar: 0.9,
+            ticks: 200,
+            zIndex: 100,
+          });
+        }
+
+        // Kill placement tweens and reset inline transforms on cleared cells
+        gsap.killTweensOf(clearEls);
+        gsap.set(clearEls, { clearProps: "transform,opacity" });
+
+        // Main cell explosion: bright pop → shard burst → shrink & fade
+        gsap
+          .timeline({
+            onComplete: () => {
+              fR.forEach((r) => {
+                for (let c = 0; c < C; c++) brd[r][c] = null;
+              });
+              fC.forEach((c) => {
+                for (let r = 0; r < R; r++) brd[r][c] = null;
+              });
+              gsap.set(clearEls, { clearProps: "all" });
+              renderBoard();
+              face.classList.remove("flash");
+              if (onDone) onDone();
+            },
+          })
+          .set(clearEls, { zIndex: 3 })
+          .to(clearEls, {
+            scale: 1.28,
+            filter: "brightness(2.3) saturate(0.55)",
+            duration: 0.14,
+            stagger: { each: 0.02, from: "start" },
+            ease: "power2.out",
+          })
+          .call(() => clearEls.forEach(spawnShards))
+          .to(
+            clearEls,
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.32,
+              stagger: { each: 0.02, from: "start" },
+              ease: "power3.in",
+            },
+            "-=0.02",
+          );
+        return tot;
+      }
+      function addPts(cl) {
+        if (!cl) return;
+        const p = cl * 100 + (cl > 1 ? (cl - 1) * 80 : 0);
+        pts += p;
+        let isNew = false;
+        if (pts > best) {
+          best = pts;
+          localStorage.setItem("bb_best", best);
+          isNew = true;
+        }
+        const el = document.getElementById("sc-score");
+        el.textContent = pts.toLocaleString("vi-VN");
+        // Elastic score pop
+        gsap.fromTo(
+          el,
+          { scale: 1 },
+          {
+            scale: 1.4,
+            duration: 0.14,
+            ease: "back.out(3)",
+            yoyo: true,
+            repeat: 1,
+            overwrite: "auto",
+          },
+        );
+        document.getElementById("sc-best").textContent =
+          best.toLocaleString("vi-VN");
+        if (cl >= 1) {
+          const bf = document.getElementById("board-face");
+          const heartCount = 8 + Math.min(cl - 1, 3) * 4;
+          const heartGlyphs = ["❤️", "💖", "💕", "💗", "💓"];
+          for (let i = 0; i < heartCount; i++) {
+            const h = document.createElement("div");
+            h.className = "heart-burst";
+            h.textContent =
+              heartGlyphs[Math.floor(Math.random() * heartGlyphs.length)];
+            h.style.fontSize = 1.4 + Math.random() * 1.4 + "rem";
+            bf.appendChild(h);
+
+            const angle =
+              (i / heartCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+            const distance = 80 + Math.random() * 90;
+            const dx = Math.cos(angle) * distance;
+            const dy = Math.sin(angle) * distance - 30;
+
+            gsap.set(h, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 });
+            gsap
+              .timeline({ onComplete: () => h.remove() })
+              .to(h, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.25,
+                ease: "back.out(3)",
+              })
+              .to(
+                h,
+                {
+                  x: dx,
+                  y: dy,
+                  rotation: (Math.random() - 0.5) * 80,
+                  duration: 0.95,
+                  ease: "power1.out",
+                },
+                "<",
+              )
+              .to(
+                h,
+                {
+                  opacity: 0,
+                  scale: 0.6,
+                  duration: 0.45,
+                  ease: "power1.in",
+                },
+                "-=0.45",
+              );
+          }
+        }
+      }
+      /* ══ SKILL: bomb 3x3 ══ */
+      function updateSkillUI() {
+        const btn = document.getElementById("skill-btn");
+        const cnt = document.getElementById("skill-count");
+        if (!btn || !cnt) return;
+        cnt.textContent = skills;
+        btn.disabled = skills <= 0;
+      }
+      function useSkill(r, c) {
+        if (skills <= 0 || !alive || paused) return;
+        // Collect 3x3 filled cells around (r, c)
+        const cells = [],
+          coords = [];
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr,
+              nc = c + dc;
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+            if (brd[nr][nc]) {
+              cells.push(GC(nr, nc));
+              coords.push({ r: nr, c: nc });
+            }
+          }
+        }
+        // Consume skill regardless (even if 3x3 all empty — user chose the spot)
+        skills--;
+        updateSkillUI();
+        if (cells.length === 0) return;
+
+        haptic(25);
+        playSfx("drop");
+
+        const boardEl = document.getElementById("board");
+        const boardRect = boardEl.getBoundingClientRect();
+        const cellW = boardRect.width / C;
+        const cellH = boardRect.height / R;
+
+        // Shockwave from center of clicked cell
+        const w = document.createElement("div");
+        w.className = "shockwave";
+        w.style.left = `${(c + 0.5) * cellW}px`;
+        w.style.top = `${(r + 0.5) * cellH}px`;
+        boardEl.appendChild(w);
+        gsap.fromTo(
+          w,
+          { scale: 0.3, opacity: 0.9 },
+          {
+            scale: 10,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            onComplete: () => w.remove(),
+          },
+        );
+
+        // Shards from each cell
+        cells.forEach((cell) => {
+          const rect = cell.getBoundingClientRect();
+          const bg = window.getComputedStyle(cell).backgroundColor;
+          const cX = rect.left - boardRect.left + rect.width / 2;
+          const cY = rect.top - boardRect.top + rect.height / 2;
+          const n = 6;
+          for (let i = 0; i < n; i++) {
+            const s = document.createElement("div");
+            s.className = "shard";
+            s.style.background = bg;
+            s.style.left = `${cX}px`;
+            s.style.top = `${cY}px`;
+            boardEl.appendChild(s);
+            const angle = (i / n) * Math.PI * 2 + (Math.random() - 0.5) * 0.9;
+            const dist = 28 + Math.random() * 46;
+            gsap.to(s, {
+              x: Math.cos(angle) * dist,
+              y: Math.sin(angle) * dist + 22 + Math.random() * 28,
+              rotation: (Math.random() - 0.5) * 720,
+              scale: 0.15 + Math.random() * 0.45,
+              opacity: 0,
+              duration: 0.55 + Math.random() * 0.3,
+              ease: "power2.out",
+              onComplete: () => s.remove(),
+            });
+          }
+        });
+
+        // Screen shake
+        const appEl = document.getElementById("app");
+        gsap.killTweensOf(appEl, "x,y");
+        gsap.set(appEl, { x: 0, y: 0 });
+        gsap.to(appEl, {
+          keyframes: {
+            x: [-8, 8, -5, 5, -2, 0],
+            y: [-4, 4, -2, 2, -1, 0],
+            easeEach: "power1.inOut",
+          },
+          duration: 0.4,
+        });
+
+        // Board flash
+        const face = document.getElementById("board-face");
+        face.classList.remove("flash");
+        void face.offsetWidth;
+        face.classList.add("flash");
+
+        // Cell explosion timeline
+        gsap.killTweensOf(cells);
+        gsap.set(cells, { clearProps: "transform,opacity" });
+        gsap
+          .timeline({
+            onComplete: () => {
+              coords.forEach(({ r, c }) => (brd[r][c] = null));
+              gsap.set(cells, { clearProps: "all" });
+              renderBoard();
+              face.classList.remove("flash");
+              // Skill-triggered explosion may also complete a line → chain clear pass
+              const cl = doClears(() => checkOver());
+              addPts(cl);
+              if (cl === 0) checkOver();
+            },
+          })
+          .set(cells, { zIndex: 3 })
+          .to(cells, {
+            scale: 1.28,
+            filter: "brightness(2.3) saturate(0.55)",
+            duration: 0.14,
+            stagger: { each: 0.02, from: "start" },
+            ease: "power2.out",
+          })
+          .to(
+            cells,
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.32,
+              stagger: { each: 0.02, from: "start" },
+              ease: "power3.in",
+            },
+            "-=0.02",
+          );
+      }
+      /* Skill drag-drop — drag skill button onto a board cell to detonate 3x3 */
+      function skillStart(e, isTouch) {
+        if (!alive || paused || skills <= 0 || skillDrag || dragging) return;
+        e.preventDefault();
+        e.stopPropagation();
+        skillDrag = true;
+        document.getElementById("skill-btn").classList.add("active");
+        document.getElementById("skill-dg").style.display = "block";
+        const cx = isTouch ? e.touches[0].clientX : e.clientX;
+        const cy = isTouch ? e.touches[0].clientY : e.clientY;
+        moveSkillGhost(cx, cy);
+        showSkillPreview(cx, cy);
+        if (isTouch) {
+          skillTid = e.touches[0].identifier;
+          document.addEventListener("touchmove", onSkillTM, {
+            passive: false,
+          });
+          document.addEventListener("touchend", onSkillTE, {
+            passive: false,
+          });
+        } else {
+          document.addEventListener("mousemove", onSkillMM);
+          document.addEventListener("mouseup", onSkillMU);
+        }
+      }
+      function onSkillMM(e) {
+        if (!skillDrag) return;
+        moveSkillGhost(e.clientX, e.clientY);
+        showSkillPreview(e.clientX, e.clientY);
+      }
+      function onSkillMU(e) {
+        skillDropAt(e.clientX, e.clientY);
+        document.removeEventListener("mousemove", onSkillMM);
+        document.removeEventListener("mouseup", onSkillMU);
+      }
+      function onSkillTM(e) {
+        e.preventDefault();
+        const t = [...e.touches].find((t) => t.identifier === skillTid);
+        if (t) {
+          moveSkillGhost(t.clientX, t.clientY);
+          showSkillPreview(t.clientX, t.clientY);
+        }
+      }
+      function onSkillTE(e) {
+        const t = [...e.changedTouches].find((t) => t.identifier === skillTid);
+        if (t) skillDropAt(t.clientX, t.clientY);
+        document.removeEventListener("touchmove", onSkillTM);
+        document.removeEventListener("touchend", onSkillTE);
+        skillTid = null;
+      }
+      function moveSkillGhost(cx, cy) {
+        const dg = document.getElementById("skill-dg");
+        dg.style.left = cx + "px";
+        dg.style.top = cy - 60 + "px";
+      }
+      function showSkillPreview(cx, cy) {
+        clearSkillPreview();
+        const { r, c } = bPos(cx, cy);
+        if (r < 0 || r >= R || c < 0 || c >= C) {
+          skillAnchor = { r: -99, c: -99 };
+          return;
+        }
+        skillAnchor = { r, c };
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr,
+              nc = c + dc;
+            if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
+            const el = GC(nr, nc);
+            if (el) {
+              el.classList.add("skill-preview");
+              skillPrev.push({ r: nr, c: nc });
+            }
+          }
+        }
+      }
+      function clearSkillPreview() {
+        skillPrev.forEach(({ r, c }) => {
+          const el = GC(r, c);
+          if (el) el.classList.remove("skill-preview");
+        });
+        skillPrev = [];
+      }
+      function skillDropAt(cx, cy) {
+        skillDrag = false;
+        clearSkillPreview();
+        document.getElementById("skill-dg").style.display = "none";
+        document.getElementById("skill-btn").classList.remove("active");
+        if (skillAnchor.r < 0) {
+          skillAnchor = { r: -99, c: -99 };
+          return;
+        }
+        const { r, c } = skillAnchor;
+        skillAnchor = { r: -99, c: -99 };
+        useSkill(r, c);
+      }
+      // Attach drag listeners to skill button
+      (function bindSkillBtn() {
+        const btn = document.getElementById("skill-btn");
+        if (!btn) return;
+        btn.addEventListener("mousedown", (e) => skillStart(e, false));
+        btn.addEventListener("touchstart", (e) => skillStart(e, true), {
+          passive: false,
+        });
+      })();
+
+      function checkOver() {
+        for (const p of tray) {
+          if (p.used) continue;
+          for (let r = 0; r <= R - p.shape.length; r++)
+            for (let c = 0; c <= C - p.shape[0].length; c++)
+              if (canPlace(p.shape, r, c)) return;
+        }
+        alive = false;
+        setTimeout(() => {
+          const isNew = pts > 0 && pts >= best;
+          document.getElementById("go-pts").textContent =
+            pts.toLocaleString("vi-VN");
+          const rec = document.getElementById("go-record");
+          const recText = document.getElementById("go-best");
+          if (isNew) {
+            rec.classList.add("new");
+            recText.textContent = "Kỷ lục mới: " + best.toLocaleString("vi-VN");
+          } else {
+            rec.classList.remove("new");
+            recText.textContent = "Kỷ lục: " + best.toLocaleString("vi-VN");
+          }
+          document.getElementById("ov-gameover").classList.add("show");
+        }, 480);
+      }
+
+      /* Boot */
+      buildPreview();
+      updateHomeBest();
+
+      /* Loading screen fade-out — wait for fonts + min display time */
+      const MIN_LOAD_MS = 850;
+      Promise.all([
+        document.fonts && document.fonts.ready
+          ? document.fonts.ready
+          : Promise.resolve(),
+        new Promise((r) => setTimeout(r, MIN_LOAD_MS)),
+      ]).then(() => {
+        const ls = document.getElementById("sc-loading");
+        if (ls) ls.classList.add("hide");
+        setTimeout(() => {
+          document.getElementById("ov-intro").classList.add("show");
+        }, 350);
+      });
+    </script>
+  </body>
+</html>
