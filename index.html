@@ -9,24 +9,24 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- favicons -->
-    <link rel="icon" type="image/x-icon" href="/assets/images/skill.jpeg" />
-    <title>Quynh Trang</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/board-bg.png" />
+    <title>Thu Phuong</title>
 
     <!-- Social share preview -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Quỳnh Trang" />
+    <meta property="og:title" content="Thu Phương" />
     <meta
       property="og:description"
-      content="Game này chỉ dành cho mình Trang thui"
+      content="Game này chỉ dành cho mình Phương thui"
     />
     <meta property="og:image" content="assets/images/skill.jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="1200" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Quỳnh Trang" />
+    <meta name="twitter:title" content="Thu Phương" />
     <meta
       name="twitter:description"
-      content="Game này chỉ dành cho mình Trang thui"
+      content="Game này chỉ dành cho mình Phương thui"
     />
     <meta name="twitter:image" content="assets/images/skill.jpeg" />
     <link
@@ -55,7 +55,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #3a8fdc;
+        background: #ffd6e0;
         font-family: "Jaro", sans-serif;
       }
 
@@ -71,17 +71,17 @@
         gap: 30px;
         background: linear-gradient(
           170deg,
-          #7ac8ff 0%,
-          #4aabf5 40%,
-          #2e8fe0 100%
+          #ffe0ec 0%,
+          #ffb8cc 40%,
+          #f48aaf 100%
         );
         background-image:
           radial-gradient(
             circle,
-            rgba(255, 255, 255, 0.13) 2px,
+            rgba(255, 255, 255, 0.25) 2px,
             transparent 2px
           ),
-          linear-gradient(170deg, #7ac8ff 0%, #4aabf5 40%, #2e8fe0 100%);
+          linear-gradient(170deg, #ffe0ec 0%, #ffb8cc 40%, #f48aaf 100%);
         background-size:
           28px 28px,
           100% 100%;
@@ -139,7 +139,7 @@
         animation-delay: 0.2s;
       }
       .lb4 {
-        background: #3dd865;
+        background: #4a90e2;
         animation-delay: 0.3s;
       }
       .lb5 {
@@ -172,18 +172,17 @@
         overflow: hidden;
         background: linear-gradient(
           170deg,
-          #7ac8ff 0%,
-          #4aabf5 40%,
-          #2e8fe0 100%
+          #ffe0ec 0%,
+          #ffb8cc 45%,
+          #f48aaf 100%
         );
-        /* polka dots */
         background-image:
           radial-gradient(
             circle,
-            rgba(255, 255, 255, 0.13) 2px,
+            rgba(255, 255, 255, 0.18) 2px,
             transparent 2px
           ),
-          linear-gradient(170deg, #7ac8ff 0%, #4aabf5 40%, #2e8fe0 100%);
+          linear-gradient(170deg, #ffe0ec 0%, #ffb8cc 45%, #f48aaf 100%);
         background-size:
           28px 28px,
           100% 100%;
@@ -243,10 +242,10 @@
       }
       /* variants */
       .g {
-        background: hsl(140 80% 22%);
+        background: hsl(220 75% 32%);
       }
       .g > .f {
-        background: hsl(142 72% 40%);
+        background: hsl(218 78% 55%);
       }
       .o {
         background: hsl(26 100% 28%);
@@ -308,6 +307,10 @@
       #sc-home {
         justify-content: flex-start;
         padding: 0;
+        background-image: url("assets/images/skill.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
 
       .home-top {
@@ -323,10 +326,179 @@
         font-size: clamp(2.6rem, 12vw, 4rem);
         line-height: 0.92;
         text-align: center;
-        filter: drop-shadow(3px 5px 0 rgba(0, 0, 0, 0.5));
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #c44a78,
+          2px -2px 0 #c44a78,
+          -2px 2px 0 #c44a78,
+          2px 2px 0 #c44a78,
+          0 6px 0 rgba(0, 0, 0, 0.35),
+          0 10px 22px rgba(0, 0, 0, 0.4);
         margin: clamp(4px, 2vw, 12px) 0 clamp(8px, 2vw, 14px);
         animation: float 3s ease-in-out infinite;
         flex-shrink: 0;
+      }
+      .home-spacer {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+      }
+      .home-tagline {
+        font-family: "Jaro", sans-serif;
+        font-size: clamp(0.95rem, 4vw, 1.15rem);
+        color: #fff;
+        text-align: center;
+        letter-spacing: 0.5px;
+        padding: 7px 18px;
+        margin: 0 auto clamp(8px, 2vw, 14px);
+        background: rgba(244, 138, 175, 0.85);
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        border-radius: 999px;
+        box-shadow:
+          0 4px 0 rgba(150, 50, 90, 0.45),
+          0 8px 18px rgba(0, 0, 0, 0.25);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        animation: tagBob 2.6s ease-in-out infinite;
+      }
+      .tg-heart {
+        color: #fff;
+        font-size: 0.95em;
+        filter: drop-shadow(0 1px 0 rgba(150, 50, 90, 0.5));
+      }
+      @keyframes tagBob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
+      }
+
+      .home-deco {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .deco-blk {
+        position: absolute;
+        width: clamp(28px, 8vw, 40px);
+        height: clamp(28px, 8vw, 40px);
+        border-radius: 9px;
+        border: 1.8px solid rgba(0, 0, 0, 0.22);
+        box-shadow:
+          inset 0 3px 0 rgba(255, 255, 255, 0.32),
+          inset 0 -4px 0 rgba(0, 0, 0, 0.22),
+          0 5px 14px rgba(0, 0, 0, 0.25);
+        opacity: 0.92;
+        animation: decoFloat 4s ease-in-out infinite;
+      }
+      .deco-blk.d1 {
+        top: 22%;
+        left: 5%;
+        background: #f44a4a;
+        animation-delay: 0s;
+        transform: rotate(-12deg);
+      }
+      .deco-blk.d2 {
+        top: 14%;
+        right: 6%;
+        background: #ffe030;
+        animation-delay: 0.5s;
+        transform: rotate(15deg);
+      }
+      .deco-blk.d3 {
+        top: 48%;
+        left: 3%;
+        background: #f560aa;
+        animation-delay: 1s;
+        transform: rotate(8deg);
+      }
+      .deco-blk.d4 {
+        top: 52%;
+        right: 4%;
+        background: #4a90e2;
+        animation-delay: 1.5s;
+        transform: rotate(-10deg);
+      }
+      .deco-blk.d5 {
+        bottom: 22%;
+        left: 8%;
+        background: #ff9f30;
+        animation-delay: 2s;
+        transform: rotate(18deg);
+      }
+      .deco-blk.d6 {
+        bottom: 18%;
+        right: 7%;
+        background: #b860f5;
+        animation-delay: 2.5s;
+        transform: rotate(-15deg);
+      }
+      @keyframes decoFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(var(--r, 0deg));
+        }
+        50% {
+          transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg));
+        }
+      }
+      .deco-blk.d1 {
+        --r: -12deg;
+      }
+      .deco-blk.d2 {
+        --r: 15deg;
+      }
+      .deco-blk.d3 {
+        --r: 8deg;
+      }
+      .deco-blk.d4 {
+        --r: -10deg;
+      }
+      .deco-blk.d5 {
+        --r: 18deg;
+      }
+      .deco-blk.d6 {
+        --r: -15deg;
+      }
+      .deco-spark {
+        position: absolute;
+        color: #fff;
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        text-shadow: 0 0 10px rgba(255, 200, 220, 0.9);
+        animation: sparkTwinkle 1.8s ease-in-out infinite;
+      }
+      .deco-spark.s1 {
+        top: 30%;
+        left: 18%;
+        animation-delay: 0.2s;
+      }
+      .deco-spark.s2 {
+        top: 38%;
+        right: 16%;
+        animation-delay: 0.9s;
+      }
+      .deco-spark.s3 {
+        bottom: 30%;
+        left: 22%;
+        animation-delay: 1.4s;
+      }
+      @keyframes sparkTwinkle {
+        0%,
+        100% {
+          opacity: 0.4;
+          transform: scale(0.85);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
       }
       @keyframes float {
         0%,
@@ -410,19 +582,19 @@
         top: 7px;
         bottom: -7px;
         border-radius: 18px;
-        background: linear-gradient(135deg, #0a1428, #060e1c);
+        background: linear-gradient(135deg, #8a3855, #5a2540);
       }
       .prev-face {
         position: relative;
         z-index: 1;
         width: 100%;
         height: 100%;
-        background: linear-gradient(160deg, #1c2b5e, #142050);
+        background: linear-gradient(160deg, #ffb8cc, #f49bb6);
         border-radius: 16px;
         padding: 8px;
         box-shadow:
-          inset 0 2px 10px rgba(0, 0, 0, 0.5),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+          inset 0 2px 10px rgba(120, 40, 70, 0.35),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.2);
       }
       .prev-grid {
         display: grid;
@@ -434,8 +606,8 @@
       }
       .phc {
         border-radius: 5px;
-        background: #1e2d5e;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        background: #e892ad;
+        box-shadow: inset 0 2px 4px rgba(120, 40, 70, 0.35);
       }
       .phc.f {
         border-radius: 6px;
@@ -462,10 +634,10 @@
         font-size: clamp(0.95rem, 4vw, 1.2rem);
       }
       .lb-btn {
-        background: rgba(20, 40, 100, 0.3);
+        background: rgba(180, 60, 100, 0.3);
       }
       .lb-btn > .f {
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.25);
         color: #fff;
         font-family: "Jaro", sans-serif;
         font-weight: 900;
@@ -523,6 +695,26 @@
         filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
       }
 
+      /* Portrait above board */
+      .game-portrait {
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: clamp(-26px, -5vw, -14px);
+        pointer-events: none;
+        flex-shrink: 0;
+        filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+      }
+      .game-portrait img {
+        height: clamp(100px, 18vh, 165px);
+        width: auto;
+        max-width: 92%;
+        object-fit: contain;
+        display: block;
+      }
+
       /* Board */
       .board-shell {
         position: relative;
@@ -531,14 +723,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 clamp(10px, 3vw, 13px) clamp(2px, 1vw, 6px);
-        width: calc(100% - clamp(20px, 6vw, 26px));
+        margin: 0 clamp(4px, 1.5vw, 8px) clamp(2px, 1vw, 6px);
+        width: calc(100% - clamp(8px, 3vw, 16px));
+        container-type: size;
       }
       .board-box {
         position: relative;
-        width: 100%;
+        width: min(100cqw, 100cqh);
+        height: min(100cqw, 100cqh);
         aspect-ratio: 1 / 1;
-        max-height: 100%;
       }
       .board-slab {
         position: absolute;
@@ -547,7 +740,7 @@
         top: 7px;
         bottom: -7px;
         border-radius: 20px;
-        background: linear-gradient(135deg, #0a1428, #060e1c);
+        background: linear-gradient(135deg, #8a3855, #5a2540);
         pointer-events: none;
       }
       .board-face {
@@ -555,12 +748,12 @@
         z-index: 1;
         width: 100%;
         height: 100%;
-        background: linear-gradient(160deg, #1c2b5e, #142050);
+        background: linear-gradient(160deg, #ec80a8, #d96b96);
         border-radius: 17px;
         padding: clamp(5px, 1.5vw, 8px);
         box-shadow:
-          inset 0 2px 10px rgba(0, 0, 0, 0.5),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+          inset 0 2px 10px rgba(100, 30, 60, 0.45),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.18);
       }
       #board {
         display: grid;
@@ -573,8 +766,8 @@
       }
       .cell {
         border-radius: clamp(4px, 1.2vw, 7px);
-        background: #1e2d5e;
-        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+        background: #ffe6ee;
+        box-shadow: inset 0 2px 5px rgba(150, 60, 90, 0.32);
         position: relative;
         overflow: hidden;
         transition: transform 0.07s;
@@ -617,8 +810,8 @@
         box-shadow: inset 0 -4px 0 #b80000;
       }
       .c2 {
-        background: #3dd865;
-        box-shadow: inset 0 -4px 0 #1a9a40;
+        background: #4a90e2;
+        box-shadow: inset 0 -4px 0 #1a5cb0;
       }
       .c3 {
         background: #3dc8f5;
@@ -875,7 +1068,7 @@
         background: #f44a4a;
       }
       .pmc.c2 {
-        background: #3dd865;
+        background: #4a90e2;
       }
       .pmc.c3 {
         background: #3dc8f5;
@@ -933,7 +1126,7 @@
       }
       /* Intro gate variants — dim backdrop + block interaction */
       .ov.ov-gate {
-        background: rgba(8, 16, 50, 0.72);
+        background: rgba(120, 40, 70, 0.55);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
       }
@@ -975,7 +1168,7 @@
           #f44a4a 0 20%,
           #ff9f30 20% 40%,
           #ffe030 40% 60%,
-          #3dd865 60% 80%,
+          #4a90e2 60% 80%,
           #3dc8f5 80% 100%
         );
         margin-bottom: 14px;
@@ -1125,8 +1318,8 @@
         0%,
         100% {
           box-shadow:
-            inset 0 2px 10px rgba(0, 0, 0, 0.5),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+            inset 0 2px 10px rgba(100, 30, 60, 0.45),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.18);
         }
         30% {
           box-shadow:
@@ -1205,30 +1398,22 @@
         z-index: 4;
       }
 
-      .combo {
+      .heart-burst {
         position: absolute;
         left: 50%;
-        top: 45%;
-        font-family: "Jaro", sans-serif;
-        font-size: 2rem;
-        white-space: nowrap;
-        color: #ffe030;
-        text-shadow:
-          -2px -2px 0 #1a1a40,
-          2px -2px 0 #1a1a40,
-          -2px 2px 0 #1a1a40,
-          2px 2px 0 #1a1a40,
-          0 0 14px rgba(255, 210, 60, 0.7);
-        filter: drop-shadow(2px 5px 0 rgba(0, 0, 0, 0.55));
+        top: 50%;
+        line-height: 1;
         pointer-events: none;
         z-index: 60;
+        filter: drop-shadow(0 3px 6px rgba(255, 80, 130, 0.55));
+        will-change: transform, opacity;
       }
     </style>
   </head>
   <body>
     <!-- ══════════════ LOADING ══════════════ -->
     <div id="sc-loading" class="loading-screen">
-      <div class="loading-logo">Quynh<br />Trang</div>
+      <div class="loading-logo">Thu<br />Phuong</div>
       <div class="loading-blocks">
         <div class="lb lb1"></div>
         <div class="lb lb2"></div>
@@ -1249,26 +1434,26 @@
             style="display: none"
           ></button>
         </div>
-        <div class="home-logo">Quynh<br />Trang</div>
-
-        <div class="best-wrap">
-          <div class="best-left">
-            <span class="crown">👑</span>
-            <span class="lbl">Kỷ lục</span>
-          </div>
-          <div class="best-right">
-            <span class="val" id="home-best">0</span>
-          </div>
+        <div class="home-logo">Thu<br />Phuong</div>
+        <div class="home-tagline">
+          <span class="tg-heart">♥</span>
+          Game dành riêng cho Thu Phương
+          <span class="tg-heart">♥</span>
         </div>
 
-        <div class="prev-wrap">
-          <div class="prev-box">
-            <div class="prev-slab"></div>
-            <div class="prev-face">
-              <div class="prev-grid" id="prev-grid"></div>
-            </div>
-          </div>
+        <div class="home-deco">
+          <span class="deco-blk d1"></span>
+          <span class="deco-blk d2"></span>
+          <span class="deco-blk d3"></span>
+          <span class="deco-blk d4"></span>
+          <span class="deco-blk d5"></span>
+          <span class="deco-blk d6"></span>
+          <span class="deco-spark s1">✦</span>
+          <span class="deco-spark s2">✧</span>
+          <span class="deco-spark s3">✦</span>
         </div>
+
+        <div class="home-spacer"></div>
 
         <div class="home-btns">
           <button class="btn g play-btn" onclick="startGame()">
@@ -1294,6 +1479,10 @@
             </div>
           </div>
           <button class="ibtn danger" onclick="goHome()">✕</button>
+        </div>
+
+        <div class="game-portrait">
+          <img src="assets/images/board-bg.png" alt="" />
         </div>
 
         <div class="board-shell" id="board-shell">
@@ -1375,10 +1564,10 @@
         <div class="modal">
           <div class="modal-stripe"></div>
           <div class="modal-icon">🌸</div>
-          <div class="modal-title">Bạn có phải<br />Quỳnh Trang không?</div>
+          <div class="modal-title">Bạn có phải<br />Thu Phương không?</div>
           <div class="modal-btns">
             <button class="btn g" onclick="introYes()">
-              <span class="f">Dĩ nhiên rồi</span>
+              <span class="f">Vanggg</span>
             </button>
             <button class="btn w" onclick="introNo()">
               <span class="f">Không</span>
@@ -1394,7 +1583,7 @@
           <div class="modal-icon">🥺</div>
           <div class="modal-title">Ui, xin lỗi!</div>
           <div class="modal-msg">
-            Game này chỉ dành cho mình Trang thui,<br />
+            Game này chỉ dành cho mình Phương thui,<br />
             không dành cho bạn đâu 💔
           </div>
           <div class="modal-btns">
@@ -1507,6 +1696,7 @@
 
       function buildPreview() {
         const el = document.getElementById("prev-grid");
+        if (!el) return;
         el.innerHTML = "";
         PV.forEach((row) =>
           row.forEach((v) => {
@@ -1518,11 +1708,7 @@
           }),
         );
       }
-      function updateHomeBest() {
-        const b = parseInt(localStorage.getItem("bb_best") || "0");
-        document.getElementById("home-best").textContent =
-          b.toLocaleString("vi-VN");
-      }
+      function updateHomeBest() {}
 
       /* ══ GAME ENGINE ══ */
       const R = 8,
@@ -2223,40 +2409,53 @@
           best.toLocaleString("vi-VN");
         if (cl >= 1) {
           const bf = document.getElementById("board-face");
-          const el2 = document.createElement("div");
-          el2.className = "combo";
-          el2.textContent = "Dĩ nhiên rồi";
-          bf.appendChild(el2);
-          // Larger text for multi-line combos
-          const peakScale = 1 + Math.min(cl - 1, 3) * 0.12;
-          // GSAP combo: pop in → peak → float up → fade out
-          gsap.set(el2, { xPercent: -50, yPercent: -50 });
-          gsap
-            .timeline({ onComplete: () => el2.remove() })
-            .from(el2, {
-              scale: 0.4,
-              rotation: -8,
-              opacity: 0,
-              duration: 0.28,
-              ease: "back.out(3.2)",
-            })
-            .to(el2, {
-              scale: peakScale,
-              rotation: 2,
-              duration: 0.15,
-              ease: "power1.out",
-            })
-            .to(
-              el2,
-              {
-                y: -150,
-                scale: peakScale * 0.86,
-                opacity: 0,
-                duration: 0.6,
-                ease: "power2.in",
-              },
-              "+=0.25",
-            );
+          const heartCount = 8 + Math.min(cl - 1, 3) * 4;
+          const heartGlyphs = ["❤️", "💖", "💕", "💗", "💓"];
+          for (let i = 0; i < heartCount; i++) {
+            const h = document.createElement("div");
+            h.className = "heart-burst";
+            h.textContent =
+              heartGlyphs[Math.floor(Math.random() * heartGlyphs.length)];
+            h.style.fontSize = 1.4 + Math.random() * 1.4 + "rem";
+            bf.appendChild(h);
+
+            const angle =
+              (i / heartCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+            const distance = 80 + Math.random() * 90;
+            const dx = Math.cos(angle) * distance;
+            const dy = Math.sin(angle) * distance - 30;
+
+            gsap.set(h, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 });
+            gsap
+              .timeline({ onComplete: () => h.remove() })
+              .to(h, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.25,
+                ease: "back.out(3)",
+              })
+              .to(
+                h,
+                {
+                  x: dx,
+                  y: dy,
+                  rotation: (Math.random() - 0.5) * 80,
+                  duration: 0.95,
+                  ease: "power1.out",
+                },
+                "<",
+              )
+              .to(
+                h,
+                {
+                  opacity: 0,
+                  scale: 0.6,
+                  duration: 0.45,
+                  ease: "power1.in",
+                },
+                "-=0.45",
+              );
+          }
         }
       }
       /* ══ SKILL: bomb 3x3 ══ */
